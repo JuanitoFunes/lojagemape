@@ -1,0 +1,51 @@
+{% if section.settings.extratexto != blank %}
+ <div class="tempofrete" style="margin: 30px 1px 30px 1px">
+                         
+ <div style="padding-bottom: 0px">
+   <div id="badges-product">
+     {% if section.settings.textoextras != blank %}
+     <div class="badge">
+       {{ section.settings.icones }}
+        <div class="badge-text">
+            <p class="text-badge">
+                <span class="highlight-text">{{ section.settings.textoextras }}</span>
+            </p>
+        </div>
+    </div>
+   {% endif %}
+   {% if section.settings.textoextras2 != blank %}
+    <div class="badge">
+        {{ section.settings.icones2 }}
+        <div class="badge-text">
+            <p class="text-badge">
+                <span class="highlight-text">{{ section.settings.textoextras2 }}</span>                
+            </p>
+        </div>
+    </div>
+   {% endif %}
+   {% if section.settings.textoextras3 != blank %}
+    <div class="badge">
+        {{ section.settings.icones3 }}
+        <div class="badge-text">
+            <p class="text-badge">
+                <span class="highlight-text">{{ section.settings.textoextras3 }}</span>
+            </p>
+        </div>
+    </div>
+   {% endif %}
+   {% if section.settings.textoextras4 != blank %}
+    <div class="badge">
+        {{ section.settings.icones4 }}
+        <div class="badge-text">
+            <p class="text-badge">
+                <span class="highlight-text">{{ section.settings.textoextras4 }}</span>
+            </p>
+        </div>
+    </div>
+   {% endif %}
+</div>
+   
+   </div>
+
+  </div>
+{% endif %}

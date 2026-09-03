@@ -1,0 +1,347 @@
+{%- if section.settings.mostrar_secao -%}
+  <div class="suporte-flutuante central-botao lado-esquerdo" style="left: 15px; bottom: 15px;">
+    <style>
+  @keyframes suporte-pulse {
+    0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(37,211,102,0.7); }
+    70%  { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37,211,102,0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+  }
+  .suporte-botao {
+    animation: suporte-pulse 2s ease-in-out infinite;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #25d366;
+    cursor: pointer;
+  }
+  .suporte-botao svg {
+    width: 32px;
+    height: 32px;
+    fill: #fff;
+  }
+</style>
+
+      <div class="suporte-botao">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 611.932 611.932" xml:space="preserve"><path d="M559.017,210.569H422.774V100.102c0-28.708-23.594-52.301-52.301-52.301H52.301C23.594,47.801,0,71.394,0,100.102v191.476c0,28.708,23.594,52.301,52.301,52.301h30.958l39.004,52.301c2.182,3.682,6.614,5.182,11.047,5.182s8.115-2.182,11.047-5.182l39.004-52.301h5.864v110.467c0,28.708,23.594,52.301,52.301,52.301H428.57l39.004,52.301c2.182,3.682,6.614,5.182,11.047,5.182s8.115-2.182,11.047-5.182l39.004-52.301h30.958c28.708,0,52.301-23.594,52.301-52.301V262.87C612,234.094,588.475,210.569,559.017,210.569z M176.065,316.603c-4.432,0-8.115,2.182-11.047,5.182l-32.39,42.687l-32.39-42.687c-2.182-3.682-6.614-5.182-11.047-5.182H50.869c-13.979,0-25.026-11.047-25.026-25.026V100.102c0-13.979,11.047-25.026,25.026-25.026h318.172c13.979,0,25.025,11.047,25.025,25.026v124.446v67.03c0,13.979-11.047,25.026-25.025,25.026H202.523L176.065,316.603L176.065,316.603z M584.792,454.346c0,13.979-11.047,25.026-25.025,25.026h-38.322c-4.432,0-8.115,2.182-11.047,5.182l-32.39,42.687l-32.39-42.687c-2.182-3.682-6.614-5.182-11.047-5.182H241.595c-13.979,0-25.026-11.047-25.026-25.026V343.879h153.904c10.297,0,19.911-2.932,27.958-8.115h103.102c7.364,0,13.229-5.864,13.229-13.229c0-7.365-5.864-13.229-13.229-13.229h-81.009c2.182-5.182,2.932-11.047,2.932-17.661v-53.051h136.242c13.979,0,25.026,11.047,25.026,25.026v190.726H584.792z M514.08,398.363c0,7.364-5.864,13.229-13.229,13.229h-200.34c-7.364,0-13.229-5.864-13.229-13.229s5.864-13.229,13.229-13.229h200.34C508.148,385.066,514.08,390.998,514.08,398.363z M310.057,248.823h-199.59c-7.364,0-13.229-5.864-13.229-13.229s5.864-13.229,13.229-13.229h199.59c7.364,0,13.229,5.864,13.229,13.229C324.036,242.959,317.422,248.823,310.057,248.823zM97.238,159.018c0-7.364,5.864-13.229,13.229-13.229H230.48c7.364,0,13.229,5.864,13.229,13.229c0,7.364-5.864,13.229-13.229,13.229H110.467C103.102,172.246,97.238,166.382,97.238,159.018z"></path></svg>
+      </div>
+      <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var botao = document.querySelector(".suporte-botao");
+        var popup = document.querySelector(".suporte-popup");
+        var fechar = document.querySelector(".suporte-close");
+    
+        if (botao && popup) {
+          botao.addEventListener("click", function () {
+            popup.classList.toggle("ativo");
+          });
+        }
+    
+        if (fechar) {
+          fechar.addEventListener("click", function () {
+            popup.classList.remove("ativo");
+          });
+        }
+        });
+      </script>
+
+      <div class="suporte-popup">
+          <div class="suporte-header">
+              <div class="suporte-close">
+                  <svg enable-background="new 0 0 492 492" version="1.1" viewBox="0 0 492 492" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"> <path d="m300.19 246l183.95-183.96c5.06-5.064 7.852-11.82 7.86-19.024 0-7.208-2.792-13.972-7.86-19.028l-16.12-16.116c-5.068-5.076-11.824-7.856-19.036-7.856-7.2 0-13.956 2.78-19.024 7.856l-183.95 183.95-183.96-183.95c-5.06-5.076-11.82-7.856-19.028-7.856-7.2 0-13.96 2.78-19.02 7.856l-16.128 16.116c-10.496 10.496-10.496 27.568 0 38.052l183.96 183.96-183.96 183.95c-5.064 5.072-7.852 11.828-7.852 19.032s2.788 13.96 7.852 19.028l16.124 16.116c5.06 5.072 11.824 7.856 19.02 7.856 7.208 0 13.968-2.784 19.028-7.856l183.96-183.95 183.95 183.95c5.068 5.072 11.824 7.856 19.024 7.856h8e-3c7.204 0 13.96-2.784 19.028-7.856l16.12-16.116c5.06-5.064 7.852-11.824 7.852-19.028s-2.792-13.96-7.852-19.028l-183.95-183.96z"></path> </svg>
+              </div>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 611.932 611.932" xml:space="preserve"><path d="M559.017,210.569H422.774V100.102c0-28.708-23.594-52.301-52.301-52.301H52.301C23.594,47.801,0,71.394,0,100.102v191.476c0,28.708,23.594,52.301,52.301,52.301h30.958l39.004,52.301c2.182,3.682,6.614,5.182,11.047,5.182s8.115-2.182,11.047-5.182l39.004-52.301h5.864v110.467c0,28.708,23.594,52.301,52.301,52.301H428.57l39.004,52.301c2.182,3.682,6.614,5.182,11.047,5.182s8.115-2.182,11.047-5.182l39.004-52.301h30.958c28.708,0,52.301-23.594,52.301-52.301V262.87C612,234.094,588.475,210.569,559.017,210.569z M176.065,316.603c-4.432,0-8.115,2.182-11.047,5.182l-32.39,42.687l-32.39-42.687c-2.182-3.682-6.614-5.182-11.047-5.182H50.869c-13.979,0-25.026-11.047-25.026-25.026V100.102c0-13.979,11.047-25.026,25.026-25.026h318.172c13.979,0,25.025,11.047,25.025,25.026v124.446v67.03c0,13.979-11.047,25.026-25.025,25.026H202.523L176.065,316.603L176.065,316.603z M584.792,454.346c0,13.979-11.047,25.026-25.025,25.026h-38.322c-4.432,0-8.115,2.182-11.047,5.182l-32.39,42.687l-32.39-42.687c-2.182-3.682-6.614-5.182-11.047-5.182H241.595c-13.979,0-25.026-11.047-25.026-25.026V343.879h153.904c10.297,0,19.911-2.932,27.958-8.115h103.102c7.364,0,13.229-5.864,13.229-13.229c0-7.365-5.864-13.229-13.229-13.229h-81.009c2.182-5.182,2.932-11.047,2.932-17.661v-53.051h136.242c13.979,0,25.026,11.047,25.026,25.026v190.726H584.792z M514.08,398.363c0,7.364-5.864,13.229-13.229,13.229h-200.34c-7.364,0-13.229-5.864-13.229-13.229s5.864-13.229,13.229-13.229h200.34C508.148,385.066,514.08,390.998,514.08,398.363z M310.057,248.823h-199.59c-7.364,0-13.229-5.864-13.229-13.229s5.864-13.229,13.229-13.229h199.59c7.364,0,13.229,5.864,13.229,13.229C324.036,242.959,317.422,248.823,310.057,248.823zM97.238,159.018c0-7.364,5.864-13.229,13.229-13.229H230.48c7.364,0,13.229,5.864,13.229,13.229c0,7.364-5.864,13.229-13.229,13.229H110.467C103.102,172.246,97.238,166.382,97.238,159.018z"></path></svg>
+              <div class="suporte-header-b">
+                  <strong>Precisa de ajuda?</strong>
+                  <span>Fale com um de nossos atendentes</span>
+              </div>
+          </div>
+
+          <div class="suporte-content">
+            <div class="atendimento-content">
+
+                {%- if section.blocks.size > 0 -%}
+                    {% assign lista_telefone = section.blocks | where: 'type', 'telefone' %}
+                    {% assign lista_whatsapp = section.blocks | where: 'type', 'whatsapp' %}
+                    {% assign lista_email = section.blocks | where: 'type', 'email' %}
+                    {% assign horario_atendimento = section.blocks | where: 'type', 'horario_atendimento' %}
+
+                    {%- if lista_telefone.size > 0 -%}
+                        <div class="a-block ct">
+                            <div class="contato-titulo">
+                                <svg width="512pt" height="512pt" viewBox="0 0 512 512.00052" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m379.18 287.94c-19.219 19.242-49.238 49.293-74.375 74.605-29.879-19.559-56.887-41.141-78.605-62.859-26.82-26.82-60.359-65.008-78.484-92.059 23.012-22.848 53.105-52.902 75.188-74.965l-132.66-132.66-66.191 65-0.097657 0.097656c-18.523 18.523-26.367 43.809-23.312 75.152 9.7695 100.23 132.33 245.4 240.68 318.11 62.727 42.098 152.89 81.066 206.21 27.734 38.719-38.715 53.52-54.488 54.133-55.141l9.9297-10.602zm47.125 176.93c-40.371 40.367-120.43 0.66016-168.26-31.438-100.54-67.477-218.71-205.67-227.52-296.1-2.1406-21.945 2.7773-39.094 14.613-50.961l44.918-44.109 90.379 90.383c-45.836 45.766-59.645 59.406-70.625 70.277l5.8242 10.039c17.688 30.469 58.711 77.316 89.344 107.95 33.602 33.602 68.094 57.324 104.16 79.898l8.4492-8.5273c18.539-18.707 45.48-45.719 61.609-61.875l90.504 90.504c-8.3828 8.6523-22.387 22.949-43.391 43.957z"></path
+                                </svg>
+                                <span>Telefone:</span>
+                            </div>
+
+                            {%- for telefone in lista_telefone -%}
+                                <a href="tel:{{ telefone.settings.ddi }}{{ telefone.settings.numero }}" target="_blank">
+                                    <div class="a-block-cont">
+                                        <span>{{ telefone.settings.numero }}</span>
+                                        <strong>{{ telefone.settings.regiao }}</strong>
+                                    </div>
+                                </a>
+                            {%- endfor -%}
+                        </div>
+                    {%- endif -%}
+
+                    {%- if lista_whatsapp.size > 0 -%}
+                        <div class="a-block cw">
+                            <div class="contato-titulo">
+                                <svg width="512pt" height="512pt" viewBox="0 0 512 512.00052" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m379.18 287.94c-19.219 19.242-49.238 49.293-74.375 74.605-29.879-19.559-56.887-41.141-78.605-62.859-26.82-26.82-60.359-65.008-78.484-92.059 23.012-22.848 53.105-52.902 75.188-74.965l-132.66-132.66-66.191 65-0.097657 0.097656c-18.523 18.523-26.367 43.809-23.312 75.152 9.7695 100.23 132.33 245.4 240.68 318.11 62.727 42.098 152.89 81.066 206.21 27.734 38.719-38.715 53.52-54.488 54.133-55.141l9.9297-10.602zm47.125 176.93c-40.371 40.367-120.43 0.66016-168.26-31.438-100.54-67.477-218.71-205.67-227.52-296.1-2.1406-21.945 2.7773-39.094 14.613-50.961l44.918-44.109 90.379 90.383c-45.836 45.766-59.645 59.406-70.625 70.277l5.8242 10.039c17.688 30.469 58.711 77.316 89.344 107.95 33.602 33.602 68.094 57.324 104.16 79.898l8.4492-8.5273c18.539-18.707 45.48-45.719 61.609-61.875l90.504 90.504c-8.3828 8.6523-22.387 22.949-43.391 43.957z"></path>
+                                </svg>
+                                <span>Whatsapp:</span>
+                            </div>
+
+                            {%- for whatsapp in lista_whatsapp -%}
+                                <a href="https://wa.me/{{ whatsapp.settings.ddi }}{{ whatsapp.settings.numero | remove: "(" | remove: ")" | remove: " " | remove: "-" }}?text={{ whatsapp.settings.texto }} {% if whatsapp.settings.enviar_link_produto %} > Link:%20{{ shop.url }}{{ product.url }}{% endif %}" target="_blank">
+                                    <div class="a-block-cont">
+                                        <span>{{ whatsapp.settings.numero }}</span>
+                                        <strong>{{ whatsapp.settings.nome_atendente }}</strong>
+                                    </div>
+                                </a>
+                            {%- endfor -%}
+                        </div>
+                    {%- endif -%}
+
+                    {%- if lista_email.size > 0 -%}
+                        <div class="a-block ce">
+                            <div class="contato-titulo">
+                                <svg width="512" height="512" enable-background="new 0 0 479.058 479.058" viewBox="0 0 479.058 479.058" xmlns="http://www.w3.org/2000/svg"><path d="m434.15 59.882h-389.23c-24.766 0-44.912 20.146-44.912 44.912v269.47c0 24.766 20.146 44.912 44.912 44.912h389.23c24.766 0 44.912-20.146 44.912-44.912v-269.47c0-24.766-20.146-44.912-44.912-44.912zm0 29.941c2.034 0 3.969 0.422 5.738 1.159l-200.36 173.65-200.36-173.65c1.769-0.736 3.704-1.159 5.738-1.159zm0 299.41h-389.23c-8.26 0-14.971-6.71-14.971-14.971v-251.65l199.78 173.14c2.822 2.441 6.316 3.655 9.81 3.655s6.988-1.213 9.81-3.655l199.78-173.14v251.65c-1e-3 8.26-6.711 14.97-14.971 14.97z"></path></svg>
+                                <span>E-mail:</span>
+                            </div>
+                            {%- for email in lista_email -%}
+                                <a target="_blank" href="mailto:{{ email.settings.email }}">
+                                    <div class="a-block-cont">
+                                        <span>{{ email.settings.email }}</span>
+                                    </div>
+                                </a>
+                            {%- endfor -%}
+                        </div>
+                    {%- endif -%}
+
+                {%- if horario_atendimento.size > 0 -%}
+                    <div class="a-block ha">
+                        <div class="contato-titulo">
+                            <svg width="512" height="512" enable-background="new 0 0 479.058 479.058" viewBox="0 0 479.058 479.058" xmlns="http://www.w3.org/2000/svg"><path d="m434.15 59.882h-389.23c-24.766 0-44.912 20.146-44.912 44.912v269.47c0 24.766 20.146 44.912 44.912 44.912h389.23c24.766 0 44.912-20.146 44.912-44.912v-269.47c0-24.766-20.146-44.912-44.912-44.912zm0 29.941c2.034 0 3.969 0.422 5.738 1.159l-200.36 173.65-200.36-173.65c1.769-0.736 3.704-1.159 5.738-1.159zm0 299.41h-389.23c-8.26 0-14.971-6.71-14.971-14.971v-251.65l199.78 173.14c2.822 2.441 6.316 3.655 9.81 3.655s6.988-1.213 9.81-3.655l199.78-173.14v251.65c-1e-3 8.26-6.711 14.97-14.971 14.97z"></path></svg>
+                            <span>Horário de atendimento:</span>
+                        </div>
+                        {%- for horario in horario_atendimento -%}
+                            <div class="a-block-cont">
+                                <span>{{ horario.settings.descricao }}</span>
+                            </div>
+                        {%- endfor -%}
+                    </div>
+                {%- endif -%}
+
+                {%- endif -%}
+            </div>
+          </div>
+      </div>
+  </div>
+
+  <style>
+      .suporte-botao {
+          background: {{ section.settings.cor_background }};
+      }
+
+      .suporte-botao svg {
+          fill: #ffffff;
+      }
+
+      .suporte-header {
+          color: #fff;
+          background: {{ section.settings.cor_background }};
+      }
+
+      .suporte-header svg {
+          fill: #ffffff;
+      }
+
+      .suporte-close svg {
+          fill: #ffffff;
+      }
+
+      .suporte-header-b {
+          color: #ffffff;
+      }
+
+      .a-block .contato-titulo svg {
+          fill: {{ section.settings.cor_background }};
+      }
+
+      .suporte-flutuante .a-block .a-block-cont strong {
+          color: {{ section.settings.cor_background }};
+          border: 2px solid {{ section.settings.cor_background }};
+      }
+  </style>
+{%- endif -%}
+
+{%- if section.settings.mostrar_secao -%}
+  <div class="suporte-flutuante central-botao lado-esquerdo" style="left: 15px; bottom: 15px;">
+    ...
+    <!-- todo seu código HTML -->
+  </div>
+
+  <style>
+    .suporte-popup {
+      display: none;
+      position: absolute;
+      bottom: 70px;
+      left: 0;
+      z-index: 1000;
+      width: 300px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .suporte-popup.ativo {
+      display: block;
+    }
+  </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var botao = document.querySelector(".suporte-botao");
+      var popup = document.querySelector(".suporte-popup");
+      var fechar = document.querySelector(".suporte-close");
+
+      if (botao && popup) {
+        botao.addEventListener("click", function () {
+          popup.classList.toggle("ativo");
+        });
+      }
+
+      if (fechar) {
+        fechar.addEventListener("click", function () {
+          popup.classList.remove("ativo");
+        });
+      }
+    });
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Botão de suporte",
+  "class": "overflow-hidden",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "mostrar_secao",
+      "label": "Mostrar botão de suporte",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Cores"
+    },
+    {
+      "type": "color",
+      "id": "cor_background",
+      "label": "Cor do background",
+      "default": "#ff3449"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "telefone",
+      "name": "Telefone",
+      "settings": [
+        {
+          "type": "text",
+          "id": "ddi",
+          "label": "DDI (Digito do país)",
+          "default": "55",
+          "info": "Deixe por padrão 55 caso utilize o tema no Brasil."
+        },
+        {
+          "type": "text",
+          "id": "numero",
+          "label": "Número para contato",
+          "default": "4004-2022",
+          "info": "Coloque no número neste formato: 4004-2022"
+        },
+        {
+          "type": "text",
+          "id": "regiao",
+          "label": "Região para contato",
+          "default": "Capitais"
+        }
+      ]
+    },
+    {
+      "type": "whatsapp",
+      "name": "Whatsapp",
+      "settings": [
+        {
+          "type": "text",
+          "id": "ddi",
+          "label": "DDI (Digito do país)",
+          "default": "55",
+          "info": "Deixe por padrão 55 caso utilize o tema no Brasil."
+        },
+        {
+          "type": "text",
+          "id": "numero",
+          "label": "Número para contato",
+          "default": "(11) 99999-9999",
+          "info": "Coloque no número neste formato: (11) 99999-9999"
+        },
+        {
+          "type": "text",
+          "id": "texto",
+          "label": "Texto",
+          "default": "Olá vim da sua loja!",
+          "info": "Texto para mensagem do WhatsApp"
+        },
+        {
+          "type": "checkbox",
+          "id": "enviar_link_produto",
+          "label": "Enviar link do produto junto",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "nome_atendente",
+          "label": "Nome do atendente",
+          "default": "Luana"
+        }
+      ]
+    },
+    {
+      "type": "email",
+      "name": "E-mail",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email para contato",
+          "default": "contato@sualoja.com"
+        }
+      ]
+    },
+    {
+      "type": "horario_atendimento",
+      "name": "Horário de atendimento",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "html",
+          "id": "descricao",
+          "label": "Descrição",
+          "default": "<span>seg a sex das 10h às 18h</span><span>sab das 10h às 14h</span>"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

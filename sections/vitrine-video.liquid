@@ -1,0 +1,107 @@
+<section id="vitrine-video" data-section-id="{{ section.id }}" data-section-settings="{{ section_settings }}">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="video-wrap">
+                <div class="video-media" data-youtube>
+                    <div style="position: relative; cursor:pointer;">
+                        <img class="capa-youtube lazyload" src="{{ section.settings.imagem | img_url: '1200x' }}" width="{{ section.settings.imagem.width }}" height="{{ section.settings.imagem.height }}" />
+                        {% render 'botao-play-youtube' %}
+                    </div>
+                </div>
+
+                {% if section.settings.produto != blank %}
+                    <div id="video-produto-mobile" class="video-produto">
+                      {%- include 'product-item', product: section.settings.produto, show_add_to_cart: true, horizontal: true -%}
+                    </div>
+
+                    <div id="video-produto-desktop" class="video-produto">
+                      {%- include 'product-item', product: section.settings.produto, show_add_to_cart: true -%}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    #vitrine-video {
+        margin-top: {{ section.settings.margem_superior }}px;
+        margin-bottom: {{ section.settings.margem_inferior }}px;
+    }
+</style>
+
+<script>
+    function renderizaVideo() {
+        const youtubeVideos = [...document.querySelectorAll('[data-youtube]')];
+        youtubeVideos.forEach(function(element) {
+            const button = element.querySelector('[data-youtube-button]');
+            button.addEventListener('click', criaFrame);
+        });
+    }
+
+    function criaFrame(event) {
+        const url = event.target.dataset.youtubeButton;
+        const youtubePlaceholder = event.target.parentNode;
+
+        const htmlString = '<iframe width="100%" src="' + url + '?autoplay=1&showinfo=0&controls=1&rel=0&modestbranding=1" allow="autoplay;" frameborder="0" allowfullscreen></iframe>';
+
+        youtubePlaceholder.style.display = 'none';
+        youtubePlaceholder.insertAdjacentHTML('beforebegin', htmlString);
+        youtubePlaceholder.parentNode.removeChild(youtubePlaceholder);
+    }
+
+    renderizaVideo();
+</script>
+
+{% schema %}
+{
+  "name": "Vitrine de vídeo",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Produto"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "accept": ["youtube"],
+      "label": "Url do vídeo (Youtube)",
+      "default": "https://www.youtube.com/watch?v=OZhJeelBiPw"
+    },
+    {
+      "type": "image_picker",
+      "id": "imagem",
+      "label": "Imagem de capa do vídeo",
+      "info": "A imagem será renderizada antes de carregar o vídeo. Acesse (https://i.ytimg.com/vi/(id_do_video_youtube)/maxresdefault.jpg) e baixe a capa do vídeo."
+    },
+    {
+      "type": "product",
+      "id": "produto",
+      "label": "Produto da vitrine"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "text",
+      "id": "margem_superior",
+      "label": "Margem superior (px)",
+      "default": "0"
+    },
+    {
+      "type": "text",
+      "id": "margem_inferior",
+      "label": "Margem inferior (px)",
+      "default": "0"
+    }
+  ],
+  "presets": [
+    {
+      "category": "Vitrine",
+      "name": "Vitrine de vídeo",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

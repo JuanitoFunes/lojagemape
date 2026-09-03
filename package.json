@@ -1,0 +1,26 @@
+{
+  "name": "loja-gemape",
+  "version": "1.0.0",
+  "description": "Tema Shopify - Loja Gemape",
+  "author": "JuanitoFunes <falecomjuanfelipe@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "shopify theme dev",
+    "push": "shopify theme push",
+    "pull": "shopify theme pull",
+    "check": "shopify theme check",
+    "package": "shopify theme package",
+    "sass": "sass assets/kits.scss assets/kits.scss.liquid --no-source-map --style=compressed --watch",
+    "sass:build": "sass assets/kits.scss assets/kits.scss.liquid --no-source-map --style=compressed",
+    "git:sync": "git add -A && git commit -m \"chore: sync automatico $(Get-Date -Format 'yyyy-MM-dd HH:mm')\" && git push origin main"
+  },
+  "devDependencies": {
+    "@shopify/cli": "^3.73.2",
+    "@shopify/theme": "^3.73.2",
+    "sass": "^1.89.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

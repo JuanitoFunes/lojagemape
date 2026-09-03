@@ -1,0 +1,110 @@
+
+<section id="showcase-advantages" data-section-id="{{ section.id }}" data-section-settings="{{ section_settings }}">
+
+  <style>
+    :root {
+      --padding_advantages : {{ section.settings.padding_top }}px 0px {{ section.settings.padding_bottom }}px;
+      --background_advantages: {{ section.settings.background_color }};
+      --icon_color_advantages: {{ section.settings.icon_color }};
+      --title_color_advantages: {{ section.settings.title_color }};
+    }
+  </style>
+
+    <div class="container">
+        <div class="row-fluid">
+            <div class="advantages">
+                {% for block in section.blocks %}
+                    <div class="advantage advantage{{ forloop.index }}">
+                        <div class="advantage-content">
+                          <div class="advantage-icone">
+                              {{ block.settings.icon }}
+                          </div>
+                          <div class="advantage-text">
+                            <span>{{ block.settings.title }}</span>
+                            {{ block.settings.description }}
+                          </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Showcase Advantages",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Cores"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor do background",
+      "default": "#F3F3F3"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Cor do título",
+      "default": "#CE0F2F"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Cor do ícone",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "text",
+      "id": "padding_top",
+      "label": "Margem superior (px)",
+      "default": "0"
+    },
+    {
+      "type": "text",
+      "id": "padding_bottom",
+      "label": "Margem inferior (px)",
+      "default": "0"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "advantage",
+      "name": "Advantage",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Ícone",
+          "info": "Copie e cole qualquer código SVG dos [ícones de bootstrap] recomendados (https://icons.getbootstrap.com/) biblioteca. Você também pode usar códigos SVG de outras fontes. Para alterar o tamanho do ícone, edite os valores de 'largura' e 'altura' dentro do código SVG."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Descrição"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Showcase",
+      "name": "Showcase Advantages",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
