@@ -1,32 +1,79 @@
 {%- if section.settings.mostrar_secao -%}
-  <div class="suporte-flutuante central-botao lado-esquerdo" style="left: 15px; bottom: 15px;">
+  <div class="suporte-flutuante central-botao lado-direito" style="right: 20px; top: 80px; left: auto; bottom: auto;">
     <style>
-  @keyframes suporte-pulse {
-    0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(37,211,102,0.7); }
-    70%  { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37,211,102,0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+  /* Anel pulsante duplo */
+  @keyframes suporte-pulse-ring1 {
+    0%   { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(2.2); opacity: 0; }
   }
-  .suporte-botao {
-    animation: suporte-pulse 2s ease-in-out infinite;
+  @keyframes suporte-pulse-ring2 {
+    0%   { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+  @keyframes suporte-bounce {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.12); }
+  }
+
+  .suporte-botao-wrapper {
+    position: relative;
+    width: 72px;
+    height: 72px;
+  }
+
+  /* anéis pulsantes */
+  .suporte-botao-wrapper::before,
+  .suporte-botao-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
-    width: 56px;
-    height: 56px;
+    background: rgba(37, 211, 102, 0.5);
+    animation: suporte-pulse-ring1 2s ease-out infinite;
+    z-index: 0;
+  }
+  .suporte-botao-wrapper::after {
+    background: rgba(37, 211, 102, 0.35);
+    animation: suporte-pulse-ring2 2s ease-out infinite 0.4s;
+  }
+
+  .suporte-botao {
+    position: relative;
+    z-index: 1;
+    animation: suporte-bounce 2s ease-in-out infinite;
+    border-radius: 50%;
+    width: 72px;
+    height: 72px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #25d366;
     cursor: pointer;
+    box-shadow: 0 4px 16px rgba(37,211,102,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .suporte-botao:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.7);
+    animation-play-state: paused;
   }
   .suporte-botao svg {
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
     fill: #fff;
   }
 </style>
 
+    <div class="suporte-botao-wrapper">
       <div class="suporte-botao">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 611.932 611.932" xml:space="preserve"><path d="M559.017,210.569H422.774V100.102c0-28.708-23.594-52.301-52.301-52.301H52.301C23.594,47.801,0,71.394,0,100.102v191.476c0,28.708,23.594,52.301,52.301,52.301h30.958l39.004,52.301c2.182,3.682,6.614,5.182,11.047,5.182s8.115-2.182,11.047-5.182l39.004-52.301h5.864v110.467c0,28.708,23.594,52.301,52.301,52.301H428.57l39.004,52.301c2.182,3.682,6.614,5.182,11.047,5.182s8.115-2.182,11.047-5.182l39.004-52.301h30.958c28.708,0,52.301-23.594,52.301-52.301V262.87C612,234.094,588.475,210.569,559.017,210.569z M176.065,316.603c-4.432,0-8.115,2.182-11.047,5.182l-32.39,42.687l-32.39-42.687c-2.182-3.682-6.614-5.182-11.047-5.182H50.869c-13.979,0-25.026-11.047-25.026-25.026V100.102c0-13.979,11.047-25.026,25.026-25.026h318.172c13.979,0,25.025,11.047,25.025,25.026v124.446v67.03c0,13.979-11.047,25.026-25.025,25.026H202.523L176.065,316.603L176.065,316.603z M584.792,454.346c0,13.979-11.047,25.026-25.025,25.026h-38.322c-4.432,0-8.115,2.182-11.047,5.182l-32.39,42.687l-32.39-42.687c-2.182-3.682-6.614-5.182-11.047-5.182H241.595c-13.979,0-25.026-11.047-25.026-25.026V343.879h153.904c10.297,0,19.911-2.932,27.958-8.115h103.102c7.364,0,13.229-5.864,13.229-13.229c0-7.365-5.864-13.229-13.229-13.229h-81.009c2.182-5.182,2.932-11.047,2.932-17.661v-53.051h136.242c13.979,0,25.026,11.047,25.026,25.026v190.726H584.792z M514.08,398.363c0,7.364-5.864,13.229-13.229,13.229h-200.34c-7.364,0-13.229-5.864-13.229-13.229s5.864-13.229,13.229-13.229h200.34C508.148,385.066,514.08,390.998,514.08,398.363z M310.057,248.823h-199.59c-7.364,0-13.229-5.864-13.229-13.229s5.864-13.229,13.229-13.229h199.59c7.364,0,13.229,5.864,13.229,13.229C324.036,242.959,317.422,248.823,310.057,248.823zM97.238,159.018c0-7.364,5.864-13.229,13.229-13.229H230.48c7.364,0,13.229,5.864,13.229,13.229c0,7.364-5.864,13.229-13.229,13.229H110.467C103.102,172.246,97.238,166.382,97.238,159.018z"></path></svg>
+        <!-- Ícone oficial WhatsApp -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="#fff">
+          <path d="M16 .5C7.44.5.5 7.44.5 16c0 2.84.75 5.5 2.06 7.82L.5 31.5l7.88-2.03A15.43 15.43 0 0016 31.5C24.56 31.5 31.5 24.56 31.5 16S24.56.5 16 .5zm0 28.18a13.1 13.1 0 01-6.68-1.83l-.48-.28-4.68 1.2 1.24-4.56-.31-.5A13.1 13.1 0 012.82 16C2.82 9.28 8.28 3.82 16 3.82S29.18 9.28 29.18 16 23.72 28.68 16 28.68zm7.18-9.8c-.39-.2-2.32-1.14-2.68-1.27-.36-.13-.62-.2-.88.2-.26.39-1.01 1.27-1.24 1.53-.23.26-.46.29-.85.1-.39-.2-1.65-.61-3.14-1.94-1.16-1.03-1.94-2.31-2.17-2.7-.23-.39-.02-.6.17-.8.18-.17.39-.46.59-.69.2-.23.26-.39.39-.65.13-.26.07-.49-.03-.69-.1-.2-.88-2.12-1.2-2.9-.32-.76-.64-.66-.88-.67h-.75c-.26 0-.68.1-1.04.49-.36.39-1.37 1.34-1.37 3.26s1.4 3.78 1.6 4.04c.2.26 2.76 4.21 6.69 5.9.93.4 1.66.64 2.23.82.94.3 1.79.26 2.46.16.75-.11 2.32-.95 2.65-1.86.33-.91.33-1.7.23-1.86-.1-.16-.36-.26-.75-.46z"/>
+        </svg>
       </div>
+    </div>
       <script>
       document.addEventListener("DOMContentLoaded", function () {
         var botao = document.querySelector(".suporte-botao");
