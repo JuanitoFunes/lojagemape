@@ -1532,16 +1532,4 @@ button.qtyplus, button.qtyminus {
     }
 }
 /* ===== Animação pulsante - Botão Suporte Flutuante ===== */
-@keyframes suporte-pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-  60%  { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-}
-
-.suporte-flutuante .suporte-botao {
-  animation: suporte-pulse 2s ease-in-out infinite;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* Animações agora definidas diretamente no suporte-botao.liquid */
