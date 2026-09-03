@@ -1341,26 +1341,25 @@ button.qtyplus, button.qtyminus {
 /*================ Botão de suporte ================*/
 .suporte-flutuante {
     position: fixed;
-    z-index: 4;
+    z-index: 9999;
     -webkit-tap-highlight-color: transparent;
 }
 
 .suporte-botao {
-    width: 60px;
-    height: 60px;
+    width: 72px;
+    height: 72px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 2px 1px rgb(0 0 0 / 4%), 0 4px 4px rgb(78 78 78 / 5%), 0 6px 8px rgb(136 136 136 / 6%), 0 10px 8px rgb(103 103 103 / 10%);
+    box-shadow: 0 4px 16px rgba(37,211,102,0.5);
 }
 
 .suporte-botao svg {
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
     position: relative;
-    top: -1px;
     display: flex;
 }
 
