@@ -1383,9 +1383,11 @@ button.qtyplus, button.qtyminus {
     transition: all 0.3s;
     position: absolute;
     width: 285px;
-    bottom: 100%;
+    top: 100%;         /* abre abaixo do botão */
+    bottom: auto;      /* cancela o bottom anterior */
+    margin-top: 15px;
+    margin-bottom: 0;
     background: #fff;
-    margin-bottom: 15px;
     visibility: hidden;
     -webkit-box-shadow: 0 4px 8px 1px rgb(43 43 43 / 15%);
     -moz-box-shadow: 0 4px 8px 1px rgba(43,43,43,.15);
@@ -1393,6 +1395,7 @@ button.qtyplus, button.qtyminus {
     -ms-box-shadow: 0 4px 8px 1px rgba(43,43,43,.15);
     box-shadow: 0 4px 8px 1px rgb(43 43 43 / 15%);
     border-radius: 8px;
+    right: 0;          /* alinha com a borda direita do botão */
 }
 
 .suporte-header {
