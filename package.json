@@ -16,8 +16,7 @@
     "git:sync": "git add -A && git commit -m \"chore: sync automatico $(Get-Date -Format 'yyyy-MM-dd HH:mm')\" && git push origin main"
   },
   "devDependencies": {
-    "@shopify/cli": "^3.73.2",
-    "@shopify/theme": "^3.73.2",
+    "@shopify/cli": "^3.77.1",
     "sass": "^1.89.2"
   },
   "engines": {
