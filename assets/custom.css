@@ -1498,8 +1498,24 @@ button.qtyplus, button.qtyminus {
 
 @media only screen and (max-width: 1024px) {
     .suporte-botao {
-        width: 54px;
-        height: 54px;
+        width: 64px;
+        height: 64px;
+    }
+
+    .suporte-botao-wrapper {
+        width: 64px;
+        height: 64px;
+    }
+
+    .suporte-botao-wrapper::before,
+    .suporte-botao-wrapper::after {
+        width: 64px;
+        height: 64px;
+    }
+
+    .suporte-botao svg {
+        width: 36px;
+        height: 36px;
     }
 
     .a-block .contato-titulo span {
