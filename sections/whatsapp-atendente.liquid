@@ -16,16 +16,18 @@
   assign pos_h = section.settings.posicao_horizontal | default: 'direita'
   assign pos_v = section.settings.posicao_vertical | default: 'inferior'
   assign distancia = section.settings.distancia_bordas | default: 24
-  assign tam_imagem = section.settings.tamanho_imagem | default: 64
-  assign tam_icone = section.settings.tamanho_icone_whatsapp | default: 28
+  assign tam_imagem = section.settings.tamanho_imagem | default: 60
+  assign tam_icone = section.settings.tamanho_icone_whatsapp | default: 25
   assign animar = section.settings.ativar_animacao
   assign abrir_nova_aba = section.settings.abrir_nova_aba
   assign cor_fundo = section.settings.cor_fundo | default: '#ffffff'
   assign cor_texto = section.settings.cor_texto | default: '#1f2937'
   assign cor_botao = section.settings.cor_botao | default: '#25d366'
   assign cor_botao_texto = '#ffffff'
-  assign texto_principal_default = 'Fale com um de nossos atendentes'
+  assign texto_principal_default = 'Fale com nossa atendente'
   assign texto_secundario_default = 'Atendimento via WhatsApp'
+  assign placeholder_photo_url = 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22320%22 viewBox=%220 0 320 320%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%25%22 stop-color=%22%2393c5fd%22/><stop offset=%22100%25%22 stop-color=%22%233b82f6%22/></linearGradient></defs><circle cx=%22160%22 cy=%22160%22 r=%22160%22 fill=%22url(%23g)%22/><text x=%22160%22 y=%22175%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-family=%22Arial,%20sans-serif%22 font-size=%22130%22 font-weight=%22700%22 fill=%22%23ffffff%22>A</text></svg>'
+  assign fallback_asset_candidates = 'atendente_png.png,atendente.png,atendente.jpg,atendente.jpeg,atendente-gemape.jpg,atendente-gemape.png' | split: ','
 -%}
 
 {%- if ativar -%}
@@ -254,15 +256,22 @@
           loading="lazy"
         >
       {%- else -%}
-        {%- assign fallback_photo_url = 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Professional%20friendly%20female%20call%20center%20customer%20support%20agent%2C%20medium%20length%20dark%20brown%20straight%20bob%20hair%2C%20wearing%20silver%20and%20white%20headset%20with%20black%20mic%20arm%20on%20left%20side%2C%20light%20sky%20blue%20button%20up%20collared%20dress%20shirt%2C%20warm%20genuine%20smile%20showing%20teeth%2C%20brown%20eyes%2C%20soft%20neutral%20plain%20light%20gray%20studio%20background%2C%20high%20resolution%20square%20photorealistic%20headshot%2C%20business%20professional%20commercial%20attire&image_size=square_hd' -%}
+        {%- assign foto_asset_usada = '' -%}
+        {%- for cand in fallback_asset_candidates -%}
+          {%- assign cand_asset = cand | asset_url -%}
+          {%- if foto_asset_usada == '' and cand_asset != blank -%}
+            {%- assign foto_asset_usada = cand_asset -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if foto_asset_usada == '' -%}{%- assign foto_asset_usada = placeholder_photo_url -%}{%- endif -%}
         <img
           class="wa-photo"
-          src="{{ 'atendente-gemape.jpg' | asset_url | default: fallback_photo_url }}"
+          src="{{ foto_asset_usada }}"
           alt="{% if section.settings.nome_atendente != blank %}Foto de {{ section.settings.nome_atendente }}{% else %}Foto da atendente{% endif %}"
           width="{{ tam_imagem }}"
           height="{{ tam_imagem }}"
           loading="lazy"
-          onerror="this.onerror=null;this.src='{{ fallback_photo_url }}';"
+          onerror="this.onerror=null;this.src='{{ placeholder_photo_url }}';"
         >
       {%- endif -%}
       <span class="wa-wa-badge" aria-hidden="true">
