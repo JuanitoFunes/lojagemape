@@ -1,4 +1,4 @@
-﻿{%- if section.settings.mostrar_secao -%}
+{%- if section.settings.mostrar_secao -%}
 <style>
   #shopify-section-suporte-botao,
   .shopify-section:has(.wpp-flutuante) {
@@ -218,20 +218,6 @@
               {%- for t in lista_telefone -%}
                 <a href="tel:{{ t.settings.ddi }}{{ t.settings.numero }}" target="_blank">
                   <span>{{ t.settings.numero }}</span><strong>{{ t.settings.regiao }}</strong>
-                </a>
-              {%- endfor -%}
-            </div>
-          {%- endif -%}
-
-          {%- if lista_whatsapp.size > 0 -%}
-            <div class="wpp-bloco">
-              <div class="wpp-bloco-titulo">
-                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 1C7.716 1 1 7.716 1 16c0 2.628.68 5.1 1.872 7.253L1 31l7.957-2.087A14.94 14.94 0 0016 31c8.284 0 15-6.716 15-15S24.284 1 16 1zm6.71 18.127c-.365-.183-2.163-1.067-2.498-1.188-.335-.122-.58-.183-.824.183-.244.365-.944 1.188-1.158 1.432-.213.244-.427.274-.792.091-.365-.183-1.54-.567-2.934-1.81-1.085-.966-1.817-2.158-2.03-2.523-.213-.365-.023-.562.16-.744.164-.163.365-.427.548-.64.183-.213.244-.365.365-.609.122-.244.061-.457-.03-.64-.091-.183-.824-1.982-1.128-2.713-.298-.71-.6-.614-.824-.625h-.701c-.244 0-.64.092-.975.457-.335.366-1.28 1.25-1.28 3.048s1.31 3.535 1.493 3.779c.183.244 2.578 3.933 6.247 5.515.873.377 1.554.601 2.084.769.876.278 1.674.238 2.305.145.703-.103 2.163-.884 2.468-1.738.305-.854.305-1.586.213-1.738-.091-.152-.335-.244-.7-.427z"/></svg>
-                <span>WhatsApp:</span>
-              </div>
-              {%- for w in lista_whatsapp -%}
-                <a href="https://wa.me/{{ w.settings.ddi }}{{ w.settings.numero | remove: '(' | remove: ')' | remove: ' ' | remove: '-' }}?text={{ w.settings.texto }}{% if w.settings.enviar_link_produto %} > Link:%20{{ shop.url }}{{ product.url }}{% endif %}" target="_blank">
-                  <span>{{ w.settings.numero }}</span><strong>{{ w.settings.nome_atendente }}</strong>
                 </a>
               {%- endfor -%}
             </div>

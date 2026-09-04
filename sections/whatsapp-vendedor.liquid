@@ -265,10 +265,14 @@
           loading="lazy"
         >
       {%- else -%}
-        <div
-          class="wv-photo" role="img" aria-label="Foto do vendedor indisponível" style="display:flex;align-items:center;justify-content:center;color:#9ca3af;font-weight:700;font-size:14px;">
-          {% if section.settings.nome_vendedor != blank %}{{ section.settings.nome_vendedor | slice: 0, 1 }}{% else %}V{% endif %}
-        </div>
+        <img
+          class="wv-photo"
+          src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Professional%20friendly%20female%20customer%20support%20agent%20with%20headset%2C%20short%20dark%20brown%20hair%2C%20wearing%20light%20blue%20button%20up%20collared%20shirt%2C%20warm%20genuine%20smile%2C%20clean%20studio%20portrait%2C%20soft%20neutral%20gray%20background%2C%20business%20attire%2C%20high%20resolution%20square%20headshot%2C%20photorealistic&image_size=square_hd"
+          alt="{% if section.settings.nome_vendedor != blank %}Foto de {{ section.settings.nome_vendedor }}{% else %}Foto da atendente{% endif %}"
+          width="{{ tam_imagem }}"
+          height="{{ tam_imagem }}"
+          loading="lazy"
+        >
       {%- endif -%}
       <span class="wv-online-dot" aria-hidden="true"></span>
     </div>
