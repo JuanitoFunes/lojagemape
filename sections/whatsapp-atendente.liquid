@@ -1,0 +1,478 @@
+{%- liquid
+  assign ativar = section.settings.ativar_widget
+  assign mostrar_desktop = section.settings.mostrar_desktop
+  assign mostrar_celular = section.settings.mostrar_celular
+  assign ddi = section.settings.ddi | default: '55'
+  assign numero_raw = section.settings.numero_whatsapp | default: ''
+  assign numero_limpo = numero_raw | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '.'
+  assign mensagem = section.settings.mensagem_automatica | default: 'Olá! Vim da loja e gostaria de informações.' | url_encode
+  assign url_whatsapp = ''
+  if numero_limpo != blank
+    assign url_whatsapp = 'https://wa.me/' | append: ddi | append: numero_limpo
+    if mensagem != blank
+      assign url_whatsapp = url_whatsapp | append: '?text=' | append: mensagem
+    endif
+  endif
+  assign pos_h = section.settings.posicao_horizontal | default: 'direita'
+  assign pos_v = section.settings.posicao_vertical | default: 'inferior'
+  assign distancia = section.settings.distancia_bordas | default: 24
+  assign tam_imagem = section.settings.tamanho_imagem | default: 84
+  assign tam_icone = section.settings.tamanho_icone_whatsapp | default: 32
+  assign animar = section.settings.ativar_animacao
+  assign abrir_nova_aba = section.settings.abrir_nova_aba
+  assign cor_fundo = section.settings.cor_fundo | default: '#ffffff'
+  assign cor_texto = section.settings.cor_texto | default: '#1f2937'
+  assign cor_botao = section.settings.cor_botao | default: '#25d366'
+  assign cor_botao_texto = '#ffffff'
+-%}
+
+{%- if ativar -%}
+<style>
+  #shopify-section-whatsapp-atendente,
+  .shopify-section:has(.wa-wrapper) {
+    overflow: visible !important;
+    transform: none !important;
+    filter: none !important;
+    contain: none !important;
+    position: static !important;
+    clip-path: none !important;
+  }
+
+  @keyframes wa-icon-pulse {
+    0%   { transform: scale(1);    box-shadow: 0 4px 14px rgba(37,211,102,0.30), 0 0 0 0 rgba(37,211,102,0.50); }
+    55%  { transform: scale(1.12); box-shadow: 0 8px 24px rgba(37,211,102,0.55), 0 0 0 12px rgba(37,211,102,0); }
+    100% { transform: scale(1);    box-shadow: 0 4px 14px rgba(37,211,102,0.30), 0 0 0 0 rgba(37,211,102,0); }
+  }
+  @keyframes wa-slide-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .wa-wrapper {
+    --wa-distance: {{ distancia }}px;
+    --wa-img-size: {{ tam_imagem }}px;
+    --wa-icon-size: {{ tam_icone }}px;
+    position: fixed !important;
+    z-index: 2147483644 !important;
+    {% if pos_v == 'inferior' %}bottom: var(--wa-distance);{% else %}top: var(--wa-distance);{% endif %}
+    {% if pos_h == 'direita' %}right: var(--wa-distance);{% else %}left: var(--wa-distance);{% endif %}
+    {% unless mostrar_desktop %}display: none !important;{% endunless %}
+    max-width: 340px;
+    width: calc(100% - (var(--wa-distance) * 2));
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    animation: wa-slide-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    pointer-events: auto;
+  }
+  .wa-card {
+    display: flex;
+    align-items: center;
+    background: {{ cor_fundo }};
+    border-radius: 22px;
+    box-shadow: 0 14px 42px rgba(15,23,42,0.18), 0 4px 14px rgba(15,23,42,0.09);
+    border: 1px solid rgba(15,23,42,0.06);
+    text-decoration: none !important;
+    color: {{ cor_texto }};
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    will-change: transform;
+    padding: 12px 18px 12px 12px;
+    gap: 12px;
+  }
+  .wa-card:focus-visible {
+    outline: 3px solid {{ cor_botao }};
+    outline-offset: 2px;
+  }
+  .wa-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 48px rgba(15,23,42,0.22), 0 6px 20px rgba(15,23,42,0.11);
+  }
+  .wa-photo-wrap {
+    position: relative;
+    flex-shrink: 0;
+    width: var(--wa-img-size);
+    height: var(--wa-img-size);
+    align-self: center;
+  }
+  .wa-photo {
+    width: var(--wa-img-size);
+    height: var(--wa-img-size);
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid rgba(15,23,42,0.08);
+    background: #f3f4f6;
+    box-shadow: 0 2px 10px rgba(15,23,42,0.12);
+  }
+  .wa-photo-initials {
+    width: var(--wa-img-size);
+    height: var(--wa-img-size);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: calc(var(--wa-img-size) / 3);
+    background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+    box-shadow: 0 2px 10px rgba(15,23,42,0.12);
+  }
+  .wa-wa-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: var(--wa-icon-size);
+    height: var(--wa-icon-size);
+    min-width: 22px;
+    min-height: 22px;
+    border-radius: 50%;
+    background: {{ cor_botao }};
+    color: {{ cor_botao_texto }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(37,211,102,0.45), 0 0 0 2.5px {{ cor_fundo }};
+    z-index: 2;
+    {% if animar %}animation: wa-icon-pulse 1.8s ease-in-out infinite;{% endif %}
+  }
+  .wa-wa-badge svg {
+    width: 62%;
+    height: 62%;
+    fill: currentColor;
+    display: block;
+  }
+  .wa-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+  .wa-title {
+    margin: 0 0 2px 0;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.25;
+    color: {{ cor_texto }};
+  }
+  .wa-cta {
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.35;
+    color: {{ cor_texto }};
+    opacity: 0.82;
+  }
+  .wa-nome {
+    display: block;
+    margin-top: 4px;
+    font-size: 11.5px;
+    color: {{ cor_botao }};
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 749px) {
+    {% unless mostrar_celular %}
+    .wa-wrapper { display: none !important; }
+    {% endunless %}
+    .wa-wrapper {
+      max-width: 100%;
+      width: auto;
+      right: var(--wa-distance);
+      bottom: var(--wa-distance);
+      left: auto;
+    }
+    .wa-card {
+      border-radius: 999px;
+      padding: 8px 14px 8px 8px;
+      gap: 10px;
+      background: {{ cor_fundo }};
+    }
+    .wa-body { display: none; }
+    .wa-wrapper.wa-expand .wa-card {
+      border-radius: 22px;
+      padding: 10px 16px 10px 10px;
+    }
+    .wa-wrapper.wa-expand .wa-body {
+      display: flex;
+      max-width: 200px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wa-wrapper, .wa-wa-badge { animation: none !important; }
+    .wa-card:hover { transform: none !important; }
+  }
+</style>
+
+<div class="wa-wrapper" id="wa-wrapper-{{ section.id }}" role="region" aria-label="Atendimento via WhatsApp">
+  <a
+    class="wa-card"
+    href="{{ url_whatsapp }}"
+    {% if abrir_nova_aba %}target="_blank" rel="noopener noreferrer"{% endif %}
+    aria-label="{% if section.settings.nome_atendente != blank %}{{ section.settings.nome_atendente }} - {% endif %}{% if section.settings.texto_principal != blank %}{{ section.settings.texto_principal }} - {% endif %}Atendimento via WhatsApp{% if section.settings.texto_secundario != blank %} - {{ section.settings.texto_secundario }}{% endif %}"
+    data-wa-card
+  >
+    <div class="wa-photo-wrap">
+      {%- if section.settings.foto_atendente != blank -%}
+        <img
+          class="wa-photo"
+          src="{{ section.settings.foto_atendente | image_url: width: 320 }}"
+          alt="{% if section.settings.nome_atendente != blank %}Foto de {{ section.settings.nome_atendente }}{% else %}Foto da atendente{% endif %}"
+          width="{{ tam_imagem }}"
+          height="{{ tam_imagem }}"
+          loading="lazy"
+        >
+      {%- else -%}
+        <div
+          class="wa-photo-initials"
+          role="img"
+          aria-label="{% if section.settings.nome_atendente != blank %}Foto de {{ section.settings.nome_atendente }}{% else %}Foto da atendente{% endif %}"
+        >
+          {% if section.settings.nome_atendente != blank %}{{ section.settings.nome_atendente | slice: 0, 1 }}{% else %}A{% endif %}
+        </div>
+      {%- endif -%}
+      <span class="wa-wa-badge" aria-hidden="true">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 1C7.716 1 1 7.716 1 16c0 2.628.68 5.1 1.872 7.253L1 31l7.957-2.087A14.94 14.94 0 0016 31c8.284 0 15-6.716 15-15S24.284 1 16 1zm6.71 18.127c-.365-.183-2.163-1.067-2.498-1.188-.335-.122-.58-.183-.824.183-.244.365-.944 1.188-1.158 1.432-.213.244-.427.274-.792.091-.365-.183-1.54-.567-2.934-1.81-1.085-.966-1.817-2.158-2.03-2.523-.213-.365-.023-.562.16-.744.164-.163.365-.427.548-.64.183-.213.244-.365.365-.609.122-.244.061-.457-.03-.64-.091-.183-.824-1.982-1.128-2.713-.298-.71-.6-.614-.824-.625h-.701c-.244 0-.64.092-.975.457-.335.366-1.28 1.25-1.28 3.048s1.31 3.535 1.493 3.779c.183.244 2.578 3.933 6.247 5.515.873.377 1.554.601 2.084.769.876.278 1.674.238 2.305.145.703-.103 2.163-.884 2.468-1.738.305-.854.305-1.586.213-1.738-.091-.152-.335-.244-.7-.427z"/>
+        </svg>
+      </span>
+    </div>
+
+    <div class="wa-body">
+      {%- if section.settings.texto_principal != blank -%}
+        <p class="wa-title">{{ section.settings.texto_principal }}</p>
+      {%- endif -%}
+      {%- if section.settings.texto_secundario != blank -%}
+        <p class="wa-cta">{{ section.settings.texto_secundario }}</p>
+      {%- endif -%}
+      {%- if section.settings.nome_atendente != blank -%}
+        <span class="wa-nome">{{ section.settings.nome_atendente }}</span>
+      {%- endif -%}
+    </div>
+  </a>
+</div>
+
+<script>
+  (function () {
+    var card = document.querySelector('[data-wa-card]');
+    if (!card) return;
+    var wrap = document.getElementById('wa-wrapper-{{ section.id }}');
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        var href = card.getAttribute('href');
+        if (href && href.indexOf('wa.me') !== -1) {
+          e.preventDefault();
+          {% if abrir_nova_aba %}window.open(href, '_blank', 'noopener,noreferrer');{% else %}window.location.href = href;{% endif %}
+        }
+      }
+    });
+    if (wrap && window.matchMedia && window.matchMedia('(max-width: 749px)').matches) {
+      var touched = false;
+      card.addEventListener('click', function (e) {
+        if (!touched) {
+          touched = true;
+          wrap.classList.add('wa-expand');
+          var href = card.getAttribute('href');
+          if (href && href.indexOf('wa.me') !== -1) {
+            e.preventDefault();
+            setTimeout(function () { window.location.href = href; }, 420);
+          }
+        }
+      });
+    }
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "WhatsApp Atendente",
+  "tag": "section",
+  "class": "whatsapp-atendente-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "ativar_widget",
+      "label": "Ativar widget atendente",
+      "default": true,
+      "info": "Exibe o botão flutuante integrado de atendimento"
+    },
+    {
+      "type": "header",
+      "content": "Atendente"
+    },
+    {
+      "type": "image_picker",
+      "id": "foto_atendente",
+      "label": "Imagem da atendente",
+      "info": "Recomendado: 320x320px JPG quadrado. Upload da foto real substitui o padrão."
+    },
+    {
+      "type": "text",
+      "id": "nome_atendente",
+      "label": "Nome da atendente",
+      "placeholder": "Ex.: Mariana - Atendimento"
+    },
+    {
+      "type": "header",
+      "content": "Textos de chamada"
+    },
+    {
+      "type": "text",
+      "id": "texto_principal",
+      "label": "Texto principal",
+      "default": "Fale com nossa atendente",
+      "placeholder": "Ex.: Fale com nossa atendente"
+    },
+    {
+      "type": "textarea",
+      "id": "texto_secundario",
+      "label": "Texto secundário (subtítulo)",
+      "default": "Atendimento via WhatsApp",
+      "placeholder": "Ex.: Resposta rápida por WhatsApp"
+    },
+    {
+      "type": "header",
+      "content": "WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "ddi",
+      "label": "DDI do país",
+      "default": "55",
+      "info": "Brasil = 55"
+    },
+    {
+      "type": "text",
+      "id": "numero_whatsapp",
+      "label": "Número do WhatsApp com DDD",
+      "default": "(11) 99999-9999",
+      "placeholder": "(11) 99999-9999",
+      "info": "Símbolos como parênteses, espaços e traços são removidos automaticamente"
+    },
+    {
+      "type": "textarea",
+      "id": "mensagem_automatica",
+      "label": "Mensagem inicial automática",
+      "default": "Olá! Vim da loja e gostaria de informações.",
+      "placeholder": "Mensagem que é enviada automaticamente ao abrir a conversa"
+    },
+    {
+      "type": "checkbox",
+      "id": "abrir_nova_aba",
+      "label": "Abrir WhatsApp em nova aba",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Posição e tamanho"
+    },
+    {
+      "type": "select",
+      "id": "posicao_horizontal",
+      "label": "Posição horizontal",
+      "default": "direita",
+      "options": [
+        { "value": "esquerda", "label": "Esquerda" },
+        { "value": "direita",  "label": "Direita" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "posicao_vertical",
+      "label": "Posição vertical",
+      "default": "inferior",
+      "options": [
+        { "value": "superior", "label": "Superior" },
+        { "value": "inferior", "label": "Inferior" }
+      ],
+      "info": "Inferior direito é o padrão recomendado para atendimento comercial"
+    },
+    {
+      "type": "range",
+      "id": "distancia_bordas",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Distância das bordas",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "tamanho_imagem",
+      "min": 56,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Tamanho da imagem (atendente)",
+      "default": 84,
+      "info": "Foto circular da atendente (elemento principal)"
+    },
+    {
+      "type": "range",
+      "id": "tamanho_icone_whatsapp",
+      "min": 18,
+      "max": 52,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho do ícone do WhatsApp",
+      "default": 32,
+      "info": "Ícone sobreposto no canto inferior direito da foto"
+    },
+    {
+      "type": "header",
+      "content": "Visibilidade"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_desktop",
+      "label": "Exibir no desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_celular",
+      "label": "Exibir no celular",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Design e animação"
+    },
+    {
+      "type": "checkbox",
+      "id": "ativar_animacao",
+      "label": "Ativar animação discreta (pulsar)",
+      "default": true,
+      "info": "Pulsa levemente apenas no ícone do WhatsApp sobreposto à foto"
+    },
+    {
+      "type": "color",
+      "id": "cor_fundo",
+      "label": "Cor de fundo do card",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cor_texto",
+      "label": "Cor dos textos",
+      "default": "#1f2937"
+    },
+    {
+      "type": "color",
+      "id": "cor_botao",
+      "label": "Cor do ícone do WhatsApp",
+      "default": "#25d366"
+    }
+  ],
+  "presets": [
+    {
+      "name": "WhatsApp Atendente",
+      "category": "Atendimento"
+    }
+  ]
+}
+{% endschema %}
