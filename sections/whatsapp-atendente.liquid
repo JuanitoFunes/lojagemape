@@ -62,7 +62,7 @@
     {% if pos_h == 'direita' %}right: var(--wa-distance);{% else %}left: var(--wa-distance);{% endif %}
     {% unless mostrar_desktop %}display: none !important;{% endunless %}
     max-width: 340px;
-    width: calc(100% - (var(--wa-distance) * 2));
+    width: auto;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     animation: wa-slide-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     pointer-events: auto;
@@ -71,27 +71,28 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background: {{ cor_fundo }};
-    border-radius: 22px;
-    box-shadow: 0 14px 42px rgba(15,23,42,0.18), 0 4px 14px rgba(15,23,42,0.09);
-    border: 1px solid rgba(15,23,42,0.06);
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
     text-decoration: none !important;
     color: {{ cor_texto }};
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.22s ease, filter 0.22s ease, opacity 0.22s ease;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     will-change: transform;
-    padding: 12px 18px 12px 12px;
+    padding: 8px 14px 8px 0;
     gap: 14px;
   }
   .wa-card:focus-visible {
     outline: 3px solid {{ cor_botao }};
-    outline-offset: 2px;
+    outline-offset: 4px;
+    border-radius: 999px;
   }
   .wa-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 18px 48px rgba(15,23,42,0.22), 0 6px 20px rgba(15,23,42,0.11);
+    filter: drop-shadow(0 10px 22px rgba(15,23,42,0.16));
   }
   .wa-photo-wrap {
     position: relative;
@@ -102,7 +103,12 @@
     border-radius: 50%;
     overflow: visible;
     background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 100%);
-    box-shadow: 0 2px 10px rgba(15,23,42,0.12);
+    box-shadow: 0 6px 18px rgba(15,23,42,0.22);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+  }
+  .wa-card:hover .wa-photo-wrap {
+    transform: scale(1.04);
+    box-shadow: 0 10px 26px rgba(15,23,42,0.28);
   }
   .wa-photo {
     position: absolute;
@@ -113,7 +119,7 @@
     object-fit: cover;
     object-position: center center;
     display: block;
-    border: 2px solid rgba(255,255,255,0.9);
+    border: 2px solid #ffffff;
     background: #f3f4f6;
   }
   .wa-photo-initials {
@@ -142,7 +148,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 14px rgba(37,211,102,0.45), 0 0 0 2.5px {{ cor_fundo }};
+    box-shadow: 0 4px 14px rgba(37,211,102,0.5), 0 0 0 2.5px #ffffff;
     z-index: 3;
     {% if animar %}animation: wa-icon-pulse 1.8s ease-in-out infinite;{% endif %}
   }
@@ -153,31 +159,39 @@
     display: block;
   }
   .wa-body {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     display: flex !important;
     flex-direction: column;
     justify-content: center;
-    min-width: 160px;
+    align-items: flex-start;
+    min-width: 170px;
     max-width: 260px;
-    padding: 2px 2px 2px 0;
+    padding: 0;
+    line-height: 1;
   }
   .wa-title {
-    margin: 0 0 3px 0;
-    font-weight: 700;
-    font-size: 15px;
+    margin: 0 0 4px 0;
+    font-weight: 800;
+    font-size: 16px;
     line-height: 1.2;
-    color: {{ cor_texto }};
+    letter-spacing: -0.01em;
+    color: #0f172a;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.7);
     display: block !important;
-    white-space: normal;
-    word-break: break-word;
+    white-space: nowrap;
+    overflow: visible;
+    word-break: normal;
   }
   .wa-cta {
     margin: 0;
-    font-size: 12.5px;
-    line-height: 1.3;
-    color: {{ cor_texto }};
-    opacity: 0.82;
+    font-size: 13px;
+    line-height: 1.35;
+    color: #475569;
+    opacity: 0.92;
+    font-weight: 500;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.6);
     display: block !important;
+    white-space: nowrap;
   }
   .wa-nome {
     display: block !important;
@@ -201,37 +215,44 @@
       bottom: var(--wa-distance);
       left: auto;
     }
+    .wa-wrapper { --wa-img-size: calc({{ tam_imagem }}px - 4px); --wa-icon-size: calc({{ tam_icone }}px - 1px); }
     .wa-card {
-      border-radius: 999px;
-      padding: 8px 16px 8px 8px;
-      gap: 10px;
-      background: {{ cor_fundo }};
+      border-radius: 0;
+      padding: 6px 12px 6px 0;
+      gap: 12px;
+      background: transparent;
+      border: none;
+      box-shadow: none;
     }
     .wa-body {
       display: flex;
-      max-width: 170px;
+      max-width: 150px;
+      min-width: 120px;
     }
     .wa-title {
-      font-size: 13px;
-      margin: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 14px;
+      margin: 0 0 3px 0;
+      white-space: normal;
+      line-height: 1.15;
+      font-weight: 800;
     }
     .wa-cta,
     .wa-nome {
       display: none !important;
     }
     .wa-wrapper.wa-expand .wa-card {
-      border-radius: 22px;
-      padding: 10px 18px 10px 10px;
+      border-radius: 0;
+      padding: 6px 14px 6px 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
     }
     .wa-wrapper.wa-expand .wa-body {
       display: flex;
-      max-width: 210px;
+      max-width: 190px;
     }
     .wa-wrapper.wa-expand .wa-title {
-      font-size: 14.5px;
+      font-size: 15px;
       white-space: normal;
     }
     .wa-wrapper.wa-expand .wa-cta {
