@@ -6,14 +6,14 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "shopify theme dev",
+    "dev": "shopify theme dev --host 127.0.0.1 --port 9292",
     "push": "shopify theme push",
     "pull": "shopify theme pull",
     "check": "shopify theme check",
     "package": "shopify theme package",
     "sass": "sass assets/kits.scss assets/kits.scss.liquid --no-source-map --style=compressed --watch",
     "sass:build": "sass assets/kits.scss assets/kits.scss.liquid --no-source-map --style=compressed",
-    "git:sync": "git add -A && git commit -m \"chore: sync automatico $(Get-Date -Format 'yyyy-MM-dd HH:mm')\" && git push origin main"
+    "git:sync": "node scripts/git-sync.js"
   },
   "devDependencies": {
     "@shopify/cli": "^3.77.1",

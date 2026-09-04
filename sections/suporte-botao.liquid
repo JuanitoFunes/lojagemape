@@ -1,7 +1,6 @@
-{%- if section.settings.mostrar_secao -%}
-
+﻿{%- if section.settings.mostrar_secao -%}
 <style>
-  /* === Botão WhatsApp Flutuante — v3 === */
+  /* === Botao WhatsApp Flutuante v3 === */
   @keyframes wpp-ring1 {
     0%   { transform: scale(1); opacity: 0.7; }
     100% { transform: scale(2.4); opacity: 0; }
@@ -14,7 +13,6 @@
     0%, 100% { transform: scale(1); }
     50%       { transform: scale(1.1); }
   }
-
   .wpp-flutuante {
     position: fixed !important;
     right: 20px !important;
@@ -23,13 +21,11 @@
     left: auto !important;
     z-index: 99999 !important;
   }
-
   .wpp-wrapper {
     position: relative;
     width: 72px;
     height: 72px;
   }
-
   .wpp-wrapper::before,
   .wpp-wrapper::after {
     content: '';
@@ -46,7 +42,6 @@
     background: rgba(37, 211, 102, 0.3);
     animation: wpp-ring2 2s ease-out infinite 0.5s;
   }
-
   .wpp-btn {
     position: relative;
     z-index: 1;
@@ -58,7 +53,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.55);
+    box-shadow: 0 4px 20px rgba(37,211,102,0.55);
     animation: wpp-bounce 2s ease-in-out infinite;
     transition: transform 0.2s, box-shadow 0.2s;
     border: none;
@@ -66,7 +61,7 @@
   }
   .wpp-btn:hover {
     transform: scale(1.12) !important;
-    box-shadow: 0 6px 28px rgba(37, 211, 102, 0.75);
+    box-shadow: 0 6px 28px rgba(37,211,102,0.75);
     animation-play-state: paused;
   }
   .wpp-btn svg {
@@ -75,8 +70,6 @@
     fill: #fff;
     display: block;
   }
-
-  /* === Popup === */
   .wpp-popup {
     position: absolute;
     top: calc(100% + 12px);
@@ -107,10 +100,7 @@
     color: #fff;
   }
   .wpp-popup-header svg {
-    width: 28px;
-    height: 28px;
-    fill: #fff;
-    flex-shrink: 0;
+    width: 28px; height: 28px; fill: #fff; flex-shrink: 0;
   }
   .wpp-popup-header-text {
     margin-left: 12px;
@@ -120,73 +110,48 @@
   }
   .wpp-popup-header-text strong { font-size: 14px; }
   .wpp-popup-header-text span   { font-size: 12px; opacity: 0.9; }
-
   .wpp-fechar {
     position: absolute;
     right: 10px; top: 10px;
-    cursor: pointer;
-    opacity: 0.8;
+    cursor: pointer; opacity: 0.8;
   }
   .wpp-fechar:hover { opacity: 1; }
   .wpp-fechar svg { width: 13px; height: 13px; fill: #fff; }
-
-  .wpp-popup-body {
-    padding: 14px;
-  }
-
+  .wpp-popup-body { padding: 14px; }
   .wpp-bloco:not(:last-child) {
     margin-bottom: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid #e8e8e8;
   }
   .wpp-bloco-titulo {
-    display: flex;
-    align-items: center;
-    margin-bottom: 6px;
+    display: flex; align-items: center; margin-bottom: 6px;
   }
   .wpp-bloco-titulo svg {
     width: 14px; height: 14px;
     fill: {{ section.settings.cor_background }};
-    margin-right: 6px;
-    flex-shrink: 0;
+    margin-right: 6px; flex-shrink: 0;
   }
-  .wpp-bloco-titulo span {
-    font-weight: 600;
-    font-size: 13px;
-    color: #333;
-  }
+  .wpp-bloco-titulo span { font-weight: 600; font-size: 13px; color: #333; }
   .wpp-bloco a {
-    display: flex;
-    align-items: center;
-    margin-top: 5px;
-    text-decoration: none;
-    color: #333;
+    display: flex; align-items: center;
+    margin-top: 5px; text-decoration: none; color: #333;
   }
-  .wpp-bloco a span {
-    font-size: 14px;
-  }
+  .wpp-bloco a span { font-size: 14px; }
   .wpp-bloco a strong {
-    font-size: 11px;
-    font-weight: 500;
-    margin-left: 6px;
-    padding: 1px 6px;
+    font-size: 11px; font-weight: 500;
+    margin-left: 6px; padding: 1px 6px;
     border-radius: 3px;
     border: 2px solid {{ section.settings.cor_background }};
     color: {{ section.settings.cor_background }};
   }
-  .wpp-bloco.ha span {
-    display: block;
-    font-size: 13px;
-    color: #555;
-  }
+  .wpp-bloco.ha span { display: block; font-size: 13px; color: #555; }
 </style>
 
 <div class="wpp-flutuante">
   <div class="wpp-wrapper">
     <div class="wpp-btn" id="wpp-abrir">
-      <!-- Ícone WhatsApp oficial -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-        <path d="M16 1C7.716 1 1 7.716 1 16c0 2.628.68 5.1 1.872 7.253L1 31l7.957-2.087A14.94 14.94 0 0016 31c8.284 0 15-6.716 15-15S24.284 1 16 1zm0 27.273a12.22 12.22 0 01-6.232-1.706l-.447-.265-4.634 1.214 1.233-4.504-.29-.463A12.22 12.22 0 013.727 16C3.727 9.718 8.718 4.727 16 4.727S28.273 9.718 28.273 16 23.282 28.273 16 28.273zm6.71-9.146c-.365-.183-2.163-1.067-2.498-1.188-.335-.122-.58-.183-.824.183-.244.365-.944 1.188-1.158 1.432-.213.244-.427.274-.792.091-.365-.183-1.54-.567-2.934-1.81-1.085-.966-1.817-2.158-2.03-2.523-.213-.365-.023-.562.16-.744.164-.163.365-.427.548-.64.183-.213.244-.365.365-.609.122-.244.061-.457-.03-.64-.091-.183-.824-1.982-1.128-2.713-.298-.71-.6-.614-.824-.625h-.701c-.244 0-.64.092-.975.457-.335.366-1.28 1.25-1.28 3.048s1.31 3.535 1.493 3.779c.183.244 2.578 3.933 6.247 5.515.873.377 1.554.601 2.084.769.876.278 1.674.238 2.305.145.703-.103 2.163-.884 2.468-1.738.305-.854.305-1.586.213-1.738-.091-.152-.335-.244-.7-.427z"/>
+        <path d="M16 1C7.716 1 1 7.716 1 16c0 2.628.68 5.1 1.872 7.253L1 31l7.957-2.087A14.94 14.94 0 0016 31c8.284 0 15-6.716 15-15S24.284 1 16 1zm0 27.273a12.22 12.22 0 01-6.232-1.706l-.447-.265-4.634 1.214 1.233-4.504-.29-.463A12.22 12.22 0 013.727 16C3.727 9.718 8.718 4.727 16 4.727S28.273 9.718 28.273 16 23.282 28.273 16 28.273zm6.71-9.146c-.365-.183-2.163-1.067-2.498-1.188-.335-.122-.58-.183-.824.183-.244.365-.944 1.188-1.158 1.432-.213.244-.427.274-.792.091-.365-.183-1.54-.567-2.934-1.81-1.085-.966-1.817-2.158-2.03-2.523-.213-.365-.023-.562.16-.744.164-.163.365-.427.548-.64.183-.213.244-.365.365-.609.122-.244.061-.457-.03-.64-.091-.183-.824-1.982-1.128-2.713-.298-.71-.6-.614-.824-.625h-.75c-.244 0-.64.092-.975.457-.335.366-1.28 1.25-1.28 3.048s1.31 3.535 1.493 3.779c.183.244 2.578 3.933 6.247 5.515.873.377 1.554.601 2.084.769.876.278 1.674.238 2.305.145.703-.103 2.163-.884 2.468-1.738.305-.854.305-1.586.213-1.738-.091-.152-.335-.244-.7-.427z"/>
       </svg>
     </div>
 
@@ -198,7 +163,7 @@
           </svg>
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-          <path d="M16 1C7.716 1 1 7.716 1 16c0 2.628.68 5.1 1.872 7.253L1 31l7.957-2.087A14.94 14.94 0 0016 31c8.284 0 15-6.716 15-15S24.284 1 16 1zm0 27.273a12.22 12.22 0 01-6.232-1.706l-.447-.265-4.634 1.214 1.233-4.504-.29-.463A12.22 12.22 0 013.727 16C3.727 9.718 8.718 4.727 16 4.727S28.273 9.718 28.273 16 23.282 28.273 16 28.273zm6.71-9.146c-.365-.183-2.163-1.067-2.498-1.188-.335-.122-.58-.183-.824.183-.244.365-.944 1.188-1.158 1.432-.213.244-.427.274-.792.091-.365-.183-1.54-.567-2.934-1.81-1.085-.966-1.817-2.158-2.03-2.523-.213-.365-.023-.562.16-.744.164-.163.365-.427.548-.64.183-.213.244-.365.365-.609.122-.244.061-.457-.03-.64-.091-.183-.824-1.982-1.128-2.713-.298-.71-.6-.614-.824-.625h-.701c-.244 0-.64.092-.975.457-.335.366-1.28 1.25-1.28 3.048s1.31 3.535 1.493 3.779c.183.244 2.578 3.933 6.247 5.515.873.377 1.554.601 2.084.769.876.278 1.674.238 2.305.145.703-.103 2.163-.884 2.468-1.738.305-.854.305-1.586.213-1.738-.091-.152-.335-.244-.7-.427z"/>
+          <path d="M16 1C7.716 1 1 7.716 1 16c0 2.628.68 5.1 1.872 7.253L1 31l7.957-2.087A14.94 14.94 0 0016 31c8.284 0 15-6.716 15-15S24.284 1 16 1zm0 27.273a12.22 12.22 0 01-6.232-1.706l-.447-.265-4.634 1.214 1.233-4.504-.29-.463A12.22 12.22 0 013.727 16C3.727 9.718 8.718 4.727 16 4.727S28.273 9.718 28.273 16 23.282 28.273 16 28.273zm6.71-9.146c-.365-.183-2.163-1.067-2.498-1.188-.335-.122-.58-.183-.824.183-.244.365-.944 1.188-1.158 1.432-.213.244-.427.274-.792.091-.365-.183-1.54-.567-2.934-1.81-1.085-.966-1.817-2.158-2.03-2.523-.213-.365-.023-.562.16-.744.164-.163.365-.427.548-.64.183-.213.244-.365.365-.609.122-.244.061-.457-.03-.64-.091-.183-.824-1.982-1.128-2.713-.298-.71-.6-.614-.824-.625h-.75c-.244 0-.64.092-.975.457-.335.366-1.28 1.25-1.28 3.048s1.31 3.535 1.493 3.779c.183.244 2.578 3.933 6.247 5.515.873.377 1.554.601 2.084.769.876.278 1.674.238 2.305.145.703-.103 2.163-.884 2.468-1.738.305-.854.305-1.586.213-1.738-.091-.152-.335-.244-.7-.427z"/>
         </svg>
         <div class="wpp-popup-header-text">
           <strong>Precisa de ajuda?</strong>
@@ -221,8 +186,7 @@
               </div>
               {%- for t in lista_telefone -%}
                 <a href="tel:{{ t.settings.ddi }}{{ t.settings.numero }}" target="_blank">
-                  <span>{{ t.settings.numero }}</span>
-                  <strong>{{ t.settings.regiao }}</strong>
+                  <span>{{ t.settings.numero }}</span><strong>{{ t.settings.regiao }}</strong>
                 </a>
               {%- endfor -%}
             </div>
@@ -236,8 +200,7 @@
               </div>
               {%- for w in lista_whatsapp -%}
                 <a href="https://wa.me/{{ w.settings.ddi }}{{ w.settings.numero | remove: '(' | remove: ')' | remove: ' ' | remove: '-' }}?text={{ w.settings.texto }}{% if w.settings.enviar_link_produto %} > Link:%20{{ shop.url }}{{ product.url }}{% endif %}" target="_blank">
-                  <span>{{ w.settings.numero }}</span>
-                  <strong>{{ w.settings.nome_atendente }}</strong>
+                  <span>{{ w.settings.numero }}</span><strong>{{ w.settings.nome_atendente }}</strong>
                 </a>
               {%- endfor -%}
             </div>
@@ -261,11 +224,9 @@
             <div class="wpp-bloco ha">
               <div class="wpp-bloco-titulo">
                 <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>
-                <span>Horário:</span>
+                <span>Horario:</span>
               </div>
-              {%- for h in lista_horario -%}
-                {{ h.settings.descricao }}
-              {%- endfor -%}
+              {%- for h in lista_horario -%}{{ h.settings.descricao }}{%- endfor -%}
             </div>
           {%- endif -%}
         {%- endif -%}
@@ -302,13 +263,13 @@
 
 {% schema %}
 {
-  "name": "Botão de suporte",
+  "name": "Botao de suporte",
   "class": "overflow-hidden",
   "settings": [
     {
       "type": "checkbox",
       "id": "mostrar_secao",
-      "label": "Mostrar botão de suporte",
+      "label": "Mostrar botao de suporte",
       "default": true
     },
     {
@@ -327,20 +288,20 @@
       "type": "telefone",
       "name": "Telefone",
       "settings": [
-        { "type": "text", "id": "ddi",    "label": "DDI", "default": "55" },
-        { "type": "text", "id": "numero", "label": "Número", "default": "4004-2022" },
-        { "type": "text", "id": "regiao", "label": "Região", "default": "Capitais" }
+        { "type": "text", "id": "ddi",    "label": "DDI",    "default": "55" },
+        { "type": "text", "id": "numero", "label": "Numero", "default": "4004-2022" },
+        { "type": "text", "id": "regiao", "label": "Regiao", "default": "Capitais" }
       ]
     },
     {
       "type": "whatsapp",
       "name": "Whatsapp",
       "settings": [
-        { "type": "text",     "id": "ddi",                 "label": "DDI",                      "default": "55" },
-        { "type": "text",     "id": "numero",              "label": "Número",                   "default": "(11) 99999-9999" },
-        { "type": "text",     "id": "texto",               "label": "Mensagem inicial",          "default": "Olá vim da sua loja!" },
-        { "type": "checkbox", "id": "enviar_link_produto", "label": "Enviar link do produto",   "default": true },
-        { "type": "text",     "id": "nome_atendente",      "label": "Nome do atendente",        "default": "Atendente" }
+        { "type": "text",     "id": "ddi",                 "label": "DDI",                    "default": "55" },
+        { "type": "text",     "id": "numero",              "label": "Numero",                 "default": "(11) 99999-9999" },
+        { "type": "text",     "id": "texto",               "label": "Mensagem inicial",       "default": "Ola vim da sua loja!" },
+        { "type": "checkbox", "id": "enviar_link_produto", "label": "Enviar link do produto", "default": true },
+        { "type": "text",     "id": "nome_atendente",      "label": "Nome do atendente",      "default": "Atendente" }
       ]
     },
     {
@@ -353,10 +314,10 @@
     },
     {
       "type": "horario_atendimento",
-      "name": "Horário de atendimento",
+      "name": "Horario de atendimento",
       "limit": 1,
       "settings": [
-        { "type": "html", "id": "descricao", "label": "Descrição", "default": "<span>Seg a Sex das 9h às 18h</span><span>Sáb das 9h às 13h</span>" }
+        { "type": "html", "id": "descricao", "label": "Descricao", "default": "<span>Seg a Sex das 9h as 18h</span>" }
       ]
     }
   ]

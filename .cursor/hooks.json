@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": "node scripts/git-sync.js",
+        "timeout": 60
+      }
+    ],
+    "stop": [
+      {
+        "command": "node scripts/git-sync.js",
+        "timeout": 60
+      }
+    ]
+  }
+}
