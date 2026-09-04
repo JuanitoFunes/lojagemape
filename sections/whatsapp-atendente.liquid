@@ -27,7 +27,7 @@
   assign texto_principal_default = 'Fale com um de nossos atendentes'
   assign texto_secundario_default = 'Atendimento via WhatsApp'
   assign placeholder_photo_url = 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22320%22 viewBox=%220 0 320 320%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%25%22 stop-color=%22%2393c5fd%22/><stop offset=%22100%25%22 stop-color=%22%233b82f6%22/></linearGradient></defs><circle cx=%22160%22 cy=%22160%22 r=%22160%22 fill=%22url(%23g)%22/><text x=%22160%22 y=%22175%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-family=%22Arial,%20sans-serif%22 font-size=%22130%22 font-weight=%22700%22 fill=%22%23ffffff%22>A</text></svg>'
-  assign fallback_asset_candidates = 'atendente,atendente_png.png,atendente.png,atendente.jpg,atendente.jpeg,atendente-gemape.jpg,atendente-gemape.png' | split: ','
+  assign fallback_asset_candidates = 'atendente_png.png,atendente.png,atendente.jpg,atendente.jpeg,atendente-gemape.jpg,atendente-gemape.png' | split: ','
 -%}
 
 {%- if ativar -%}
@@ -99,19 +99,26 @@
     width: var(--wa-img-size);
     height: var(--wa-img-size);
     align-self: center;
+    border-radius: 50%;
+    overflow: visible;
+    background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 100%);
+    box-shadow: 0 2px 10px rgba(15,23,42,0.12);
   }
   .wa-photo {
-    width: var(--wa-img-size);
-    height: var(--wa-img-size);
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center center;
     display: block;
-    border: 2px solid rgba(255,255,255,0.85);
+    border: 2px solid rgba(255,255,255,0.9);
     background: #f3f4f6;
   }
   .wa-photo-initials {
-    width: var(--wa-img-size);
-    height: var(--wa-img-size);
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -123,8 +130,8 @@
   }
   .wa-wa-badge {
     position: absolute;
-    bottom: 4px;
-    right: 2px;
+    bottom: -2px;
+    right: -2px;
     width: var(--wa-icon-size);
     height: var(--wa-icon-size);
     min-width: 22px;
@@ -136,7 +143,7 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 14px rgba(37,211,102,0.45), 0 0 0 2.5px {{ cor_fundo }};
-    z-index: 2;
+    z-index: 3;
     {% if animar %}animation: wa-icon-pulse 1.8s ease-in-out infinite;{% endif %}
   }
   .wa-wa-badge svg {
@@ -254,19 +261,12 @@
           width="{{ tam_imagem }}"
           height="{{ tam_imagem }}"
           loading="lazy"
+          onerror="this.onerror=null;this.src='{{ 'atendente_png.png' | asset_url }}';"
         >
       {%- else -%}
-        {%- assign foto_asset_usada = '' -%}
-        {%- for cand in fallback_asset_candidates -%}
-          {%- assign cand_asset = cand | asset_url -%}
-          {%- if foto_asset_usada == '' and cand_asset != blank -%}
-            {%- assign foto_asset_usada = cand_asset -%}
-          {%- endif -%}
-        {%- endfor -%}
-        {%- if foto_asset_usada == '' -%}{%- assign foto_asset_usada = placeholder_photo_url -%}{%- endif -%}
         <img
           class="wa-photo"
-          src="{{ foto_asset_usada }}"
+          src="{{ 'atendente_png.png' | asset_url }}"
           alt="{% if section.settings.nome_atendente != blank %}Foto de {{ section.settings.nome_atendente }}{% else %}Foto da atendente{% endif %}"
           width="{{ tam_imagem }}"
           height="{{ tam_imagem }}"
