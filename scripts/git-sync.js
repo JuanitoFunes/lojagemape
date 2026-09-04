@@ -97,4 +97,7 @@ async function main() {
   }
 }
 
-main();
+main().catch((err) => {
+  process.stderr.write(String(err && err.message ? err.message : err) + "\n");
+  process.exitCode = 1;
+});
