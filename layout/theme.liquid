@@ -166,19 +166,30 @@
     {{ shop.metafields.loox.global_html_head }}
     {% endcomment %}
     <style>
+      body > a[href*="wa.me"],
+      body > a[href*="whatsapp.com"],
       iframe[src*="whatsapp"],
       [id*="whatshelp"],
       [class*="whatshelp"],
+      [id*="wh-widget"],
+      [class*="wh-widget"],
       [class*="whtsapp"],
+      [class*="whatsapp"],
+      [class*="wa_float"],
+      [class*="wa-float"],
+      [class*="wa-button"],
       [class*="chaty"],
       [class*="tidio"],
       [class*="tawk"],
       [class*="jivo"],
-      [class*="onepix"] {
+      [class*="onepix"],
+      [class*="joinchat"],
+      [class*="wpapp"] {
         display: none !important;
         visibility: hidden !important;
         opacity: 0 !important;
         pointer-events: none !important;
+        z-index: -1 !important;
       }
     </style>
   </head>

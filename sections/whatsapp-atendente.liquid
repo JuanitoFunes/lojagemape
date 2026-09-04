@@ -24,6 +24,8 @@
   assign cor_texto = section.settings.cor_texto | default: '#1f2937'
   assign cor_botao = section.settings.cor_botao | default: '#25d366'
   assign cor_botao_texto = '#ffffff'
+  assign texto_principal_default = 'Fale com um de nossos atendentes'
+  assign texto_secundario_default = 'Atendimento via WhatsApp'
 -%}
 
 {%- if ativar -%}
@@ -142,28 +144,34 @@
     display: block;
   }
   .wa-body {
-    flex: 1;
-    display: flex;
+    flex: 1 1 auto;
+    display: flex !important;
     flex-direction: column;
     justify-content: center;
-    min-width: 0;
+    min-width: 160px;
+    max-width: 260px;
+    padding: 2px 2px 2px 0;
   }
   .wa-title {
-    margin: 0 0 2px 0;
+    margin: 0 0 3px 0;
     font-weight: 700;
     font-size: 15px;
-    line-height: 1.25;
+    line-height: 1.2;
     color: {{ cor_texto }};
+    display: block !important;
+    white-space: normal;
+    word-break: break-word;
   }
   .wa-cta {
     margin: 0;
     font-size: 12.5px;
-    line-height: 1.35;
+    line-height: 1.3;
     color: {{ cor_texto }};
     opacity: 0.82;
+    display: block !important;
   }
   .wa-nome {
-    display: block;
+    display: block !important;
     margin-top: 4px;
     font-size: 11.5px;
     color: {{ cor_botao }};
@@ -246,14 +254,15 @@
           loading="lazy"
         >
       {%- else -%}
+        {%- assign fallback_photo_url = 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Professional%20friendly%20female%20call%20center%20customer%20support%20agent%2C%20medium%20length%20dark%20brown%20straight%20bob%20hair%2C%20wearing%20silver%20and%20white%20headset%20with%20black%20mic%20arm%20on%20left%20side%2C%20light%20sky%20blue%20button%20up%20collared%20dress%20shirt%2C%20warm%20genuine%20smile%20showing%20teeth%2C%20brown%20eyes%2C%20soft%20neutral%20plain%20light%20gray%20studio%20background%2C%20high%20resolution%20square%20photorealistic%20headshot%2C%20business%20professional%20commercial%20attire&image_size=square_hd' -%}
         <img
           class="wa-photo"
-          src="{{ 'atendente-gemape.jpg' | asset_url }}"
+          src="{{ 'atendente-gemape.jpg' | asset_url | default: fallback_photo_url }}"
           alt="{% if section.settings.nome_atendente != blank %}Foto de {{ section.settings.nome_atendente }}{% else %}Foto da atendente{% endif %}"
           width="{{ tam_imagem }}"
           height="{{ tam_imagem }}"
           loading="lazy"
-          onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22{{ tam_imagem }}%22 height=%22{{ tam_imagem }}%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23dbeafe%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-family=%22sans-serif%22 font-size=%22{{ tam_imagem | divided_by: 3 }}%22 fill=%22%231e40af%22>A</text></svg>';"
+          onerror="this.onerror=null;this.src='{{ fallback_photo_url }}';"
         >
       {%- endif -%}
       <span class="wa-wa-badge" aria-hidden="true">
@@ -264,11 +273,11 @@
     </div>
 
     <div class="wa-body">
-      {%- if section.settings.texto_principal != blank -%}
-        <p class="wa-title">{{ section.settings.texto_principal }}</p>
-      {%- endif -%}
-      {%- if section.settings.texto_secundario != blank -%}
-        <p class="wa-cta">{{ section.settings.texto_secundario }}</p>
+      {%- assign texto_principal_show = section.settings.texto_principal | default: texto_principal_default -%}
+      {%- assign texto_secundario_show = section.settings.texto_secundario | default: texto_secundario_default -%}
+      <p class="wa-title">{{ texto_principal_show }}</p>
+      {%- if texto_secundario_show != blank -%}
+        <p class="wa-cta">{{ texto_secundario_show }}</p>
       {%- endif -%}
       {%- if section.settings.nome_atendente != blank -%}
         <span class="wa-nome">{{ section.settings.nome_atendente }}</span>
@@ -346,8 +355,8 @@
       "type": "text",
       "id": "texto_principal",
       "label": "Texto principal",
-      "default": "Fale com nossa atendente",
-      "placeholder": "Ex.: Fale com nossa atendente"
+      "default": "Fale com um de nossos atendentes",
+      "placeholder": "Ex.: Fale com um de nossos atendentes"
     },
     {
       "type": "textarea",
