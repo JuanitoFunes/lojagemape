@@ -1,0 +1,525 @@
+{%- liquid
+  assign ativar = section.settings.ativar_widget
+  assign mostrar_desktop = section.settings.mostrar_desktop
+  assign mostrar_celular = section.settings.mostrar_celular
+  assign ddi = section.settings.ddi | default: '55'
+  assign numero_raw = section.settings.numero_whatsapp | default: ''
+  assign numero_limpo = numero_raw | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '.'
+  assign mensagem = section.settings.mensagem_automatica | default: 'Olá! Vim da loja e quero informações.' | url_encode
+  assign url_whatsapp = ''
+  if numero_limpo != blank
+    assign url_whatsapp = 'https://wa.me/' | append: ddi | append: numero_limpo
+    if mensagem != blank
+      assign url_whatsapp = url_whatsapp | append: '?text=' | append: mensagem
+    endif
+  endif
+  assign pos_h = section.settings.posicao_horizontal | default: 'direita'
+  assign pos_v = section.settings.posicao_vertical | default: 'inferior'
+  assign distancia = section.settings.distancia_bordas | default: 24
+  assign tam_imagem = section.settings.tamanho_imagem | default: 72
+  assign tam_widget = section.settings.tamanho_widget | default: 'medio'
+  assign animar = section.settings.ativar_animacao
+  assign abrir_nova_aba = section.settings.abrir_nova_aba
+  assign cor_fundo = section.settings.cor_fundo | default: '#ffffff'
+  assign cor_texto = section.settings.cor_texto | default: '#1f2937'
+  assign cor_botao = section.settings.cor_botao | default: '#25d366'
+  assign cor_botao_texto = '#ffffff'
+-%}
+
+{%- if ativar -%}
+<style>
+  #shopify-section-whatsapp-vendedor,
+  .shopify-section:has(.wv-wrapper) {
+    overflow: visible !important;
+    transform: none !important;
+    filter: none !important;
+    contain: none !important;
+    position: static !important;
+  }
+
+  @keyframes wv-pulse {
+    0%   { transform: scale(1);    box-shadow: 0 6px 24px rgba(37, 211, 102, 0.25), 0 0 0 0 rgba(37, 211, 102, 0.35); }
+    55%  { transform: scale(1.05); box-shadow: 0 10px 34px rgba(37, 211, 102, 0.45), 0 0 0 16px rgba(37, 211, 102, 0); }
+    100% { transform: scale(1);    box-shadow: 0 6px 24px rgba(37, 211, 102, 0.25), 0 0 0 0 rgba(37, 211, 102, 0); }
+  }
+  @keyframes wv-slide-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .wv-wrapper {
+    --wv-distance: {{ distancia }}px;
+    --wv-img-size: {{ tam_imagem }}px;
+    position: fixed;
+    position: fixed !important;
+    z-index: 2147483645 !important;
+    {% if pos_v == 'inferior' %}bottom: var(--wv-distance);{% else %}top: var(--wv-distance);{% endif %}
+    {% if pos_h == 'direita' %}right: var(--wv-distance);{% else %}left: var(--wv-distance);{% endif %}
+    {% unless mostrar_desktop %}display: none !important;{% endunless %}
+    max-width: 340px;
+    width: calc(100% - (var(--wv-distance) * 2));
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    animation: wv-slide-in 0.35s ease-out both;
+  }
+  .wv-card {
+    display: flex;
+    align-items: stretch;
+    background: {{ cor_fundo }};
+    border-radius: 20px;
+    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.18), 0 4px 12px rgba(15, 23, 42, 0.10);
+    overflow: hidden;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    text-decoration: none !important;
+    color: {{ cor_texto }};
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    will-change: transform;
+  }
+  .wv-card:focus-visible {
+    outline: 3px solid {{ cor_botao }};
+    outline-offset: 2px;
+  }
+  .wv-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 46px rgba(15, 23, 42, 0.22), 0 6px 18px rgba(15, 23, 42, 0.12);
+  }
+  .wv-photo-wrap {
+    position: relative;
+    flex-shrink: 0;
+    width: var(--wv-img-size);
+    padding: 10px 0 10px 10px;
+    display: flex;
+    align-items: center;
+  }
+  .wv-photo {
+    width: var(--wv-img-size);
+    height: var(--wv-img-size);
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid {{ cor_botao }};
+    background: #f3f4f6;
+  }
+  .wv-online-dot {
+    position: absolute;
+    bottom: 12px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+    background: #25d366;
+    border: 2px solid {{ cor_fundo }};
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .wv-body {
+    padding: 10px 12px 10px 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+  .wv-title {
+    display: flex;
+    align-items: center;
+    font-size: 13.5px;
+    line-height: 1.25;
+    font-weight: 600;
+    color: {{ cor_texto }};
+    margin: 0 0 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .wv-cta {
+    font-size: 12.5px;
+    line-height: 1.35;
+    color: {{ cor_texto }};
+    opacity: 0.80;
+    margin: 0 0 6px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .wv-btn-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .wv-name-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: {{ cor_botao }};
+    color: {{ cor_botao_texto }};
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    text-decoration: none;
+    {% if animar %}animation: wv-pulse 1.8s ease-in-out infinite;{% endif %}
+    flex-shrink: 0;
+  }
+  .wv-name-tag svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+    display: block;
+  }
+  .wv-nome-vendedor {
+    font-size: 11px;
+    color: {{ cor_texto }};
+    opacity: 0.55;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+  .wv-fechar {
+    position: absolute;
+    top: 6px;
+    {% if pos_h == 'direita' %}left: 6px;{% else %}right: 6px;{% endif %}
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.08);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: {{ cor_texto }};
+    opacity: 0.55;
+    transition: opacity 0.15s ease, background 0.15s ease;
+    z-index: 3;
+  }
+  .wv-fechar:hover,
+  .wv-fechar:focus-visible {
+    opacity: 1;
+    background: rgba(15, 23, 42, 0.14);
+    outline: none;
+  }
+  .wv-fechar svg { width: 11px; height: 11px; fill: currentColor; display: block; }
+  .wv-card.size--pequeno { --wv-img-size: {{ tam_imagem | minus: 12 | append: 'px' }}; }
+  .wv-card.size--grande  { --wv-img-size: {{ tam_imagem | plus: 16 | append: 'px' }}; }
+
+  @media (max-width: 749px) {
+    .wv-wrapper {
+      {% unless mostrar_celular %}display: none !important;{% endunless %}
+      {% if pos_v == 'inferior' %}bottom: {{ distancia | minus: 8 | append: 'px' }};{% else %}top: {{ distancia | minus: 8 | append: 'px' }};{% endif %}
+      {% if pos_h == 'direita' %}right: {{ distancia | minus: 8 | append: 'px' }};{% else %}left: {{ distancia | minus: 8 | append: 'px' }};{% endif %}
+      --wv-img-size: clamp(56px, 16vw, 64px);
+      max-width: min(300px);
+    }
+    .wv-card { border-radius: 18px; }
+    .wv-title  { font-size: 13px; }
+    .wv-cta  { font-size: 12px; }
+    .wv-nome-vendedor { display: none; }
+    .wv-body { padding: 8px 8px 8px 6px; }
+    .wv-photo-wrap { padding: 8px 0 8px 8px; }
+  }
+  @media (min-width: 750px) {
+    .wv-card.size--pequeno { --wv-img-size: calc(var(--wv-img-size) - 12px); }
+    .wv-card.size--grande  { --wv-img-size: calc(var(--wv-img-size) + 16px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wv-name-tag { animation: none !important; }
+    .wv-wrapper  { animation: none !important; }
+  }
+</style>
+
+<div class="wv-wrapper" id="wv-wrapper-{{ section.id }}" role="region" aria-label="Atendimento via WhatsApp">
+  <a
+    class="wv-card size--{{ tam_widget }}"
+    href="{{ url_whatsapp }}"
+    {% if abrir_nova_aba %}target="_blank" rel="noopener noreferrer"{% endif %}
+    aria-label="{% if section.settings.nome_vendedor != blank %}{{ section.settings.nome_vendedor }} - {% endif %}Atendimento via WhatsApp{% if section.settings.texto_secundario != blank %} - {{ section.settings.texto_secundario }}{% endif %}"
+    data-wv-card
+  >
+    <button
+      type="button"
+      class="wv-fechar"
+      aria-label="Fechar widget de atendimento"
+      data-wv-close
+    >
+      <svg viewBox="0 0 492 492" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M300.19 246l183.95-183.96c10.5-10.496 10.5-27.568 0-38.052l-16.12-16.116c-10.496-10.496-27.568-10.496-38.064 0L246 191.776 62.044 7.876C51.548-2.62 34.476-2.62 23.98 7.876L7.852 23.992C-2.644 34.488-2.644 51.56 7.852 62.044L191.808 246 7.852 429.956c-10.496 10.496-10.496 27.568 0 38.052l16.128 16.116c10.496 10.072 27.568 10.072 38.064 0L246 300.224l183.956 183.9c10.496 10.072 27.568 10.072 38.064 0l16.12-16.116c10.496-10.484 10.496-27.556 0-38.052L300.19 246z"/>
+      </svg>
+    </button>
+
+    <div class="wv-photo-wrap">
+      {%- if section.settings.foto_vendedor != blank -%}
+        <img
+          class="wv-photo"
+          src="{{ section.settings.foto_vendedor | image_url: width: 240 }}"
+          alt="{% if section.settings.nome_vendedor != blank %}Foto de {{ section.settings.nome_vendedor }}{% else %}Foto do vendedor{% endif %}"
+          width="{{ tam_imagem }}"
+          height="{{ tam_imagem }}"
+          loading="lazy"
+        >
+      {%- else -%}
+        <div
+          class="wv-photo" role="img" aria-label="Foto do vendedor indisponível" style="display:flex;align-items:center;justify-content:center;color:#9ca3af;font-weight:700;font-size:14px;">
+          {% if section.settings.nome_vendedor != blank %}{{ section.settings.nome_vendedor | slice: 0, 1 }}{% else %}V{% endif %}
+        </div>
+      {%- endif -%}
+      <span class="wv-online-dot" aria-hidden="true"></span>
+    </div>
+
+    <div class="wv-body">
+      {%- if section.settings.texto_principal != blank -%}
+        <p class="wv-title">{{ section.settings.texto_principal }}</p>
+      {%- endif -%}
+      {%- if section.settings.texto_secundario != blank -%}
+        <p class="wv-cta">{{ section.settings.texto_secundario }}</p>
+      {%- endif -%}
+      <div class="wv-btn-row">
+        <span class="wv-name-tag" aria-hidden="false">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+            <path d="M16 1C7.716 1 1 7.716 1 16c0 2.628.68 5.1 1.872 7.253L1 31l7.957-2.087A14.94 14.94 0 0016 31c8.284 0 15-6.716 15-15S24.284 1 16 1zm0 27.273a12.22 12.22 0 01-6.232-1.706l-.447-.265-4.634 1.214 1.233-4.504-.29-.463A12.22 12.22 0 013.727 16C3.727 9.718 8.718 4.727 16 4.727S28.273 9.718 28.273 16 23.282 28.273 16 28.273zm6.71-9.146c-.365-.183-2.163-1.067-2.498-1.188-.335-.122-.58-.183-.824.183-.244.365-.944 1.188-1.158 1.432-.213.244-.427.274-.792.091-.365-.183-1.54-.567-2.934-1.81-1.085-.966-1.817-2.158-2.03-2.523-.213-.365-.023-.562.16-.744.164-.163.365-.427.548-.64.183-.213.244-.365.365-.609.122-.244.061-.457-.03-.64-.091-.183-.824-1.982-1.128-2.713-.298-.71-.6-.614-.824-.625h-.75c-.244 0-.64.092-.975.457-.335.366-1.28 1.25-1.28 3.048s1.31 3.535 1.493 3.779c.183.244 2.578 3.933 6.247 5.515.873.377 1.554.601 2.084.769.876.278 1.674.238 2.305.145.703-.103 2.163-.884 2.468-1.738.305-.854.305-1.586.213-1.738-.091-.152-.335-.244-.7-.427z"/>
+          </svg>
+          WhatsApp
+        </span>
+        {%- if section.settings.nome_vendedor != blank -%}
+          <span class="wv-nome-vendedor">{{ section.settings.nome_vendedor }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+  </a>
+</div>
+
+<script>
+  (function () {
+    var STORAGE_KEY = 'wv_hidden_{{ section.id }}';
+    var HIDE_MS = 7 * 24 * 60 * 60 * 1000;
+    try {
+      var hiddenUntil = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+      if (hiddenUntil && Date.now() < hiddenUntil) {
+        var w = document.getElementById('wv-wrapper-{{ section.id }}');
+        if (w) w.style.display = 'none';
+      }
+    } catch (e) {}
+
+    document.addEventListener('click', function (e) {
+      var closeBtn = e.target.closest && e.target.closest('[data-wv-close]');
+      if (!closeBtn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      var wrap = closeBtn.closest('.wv-wrapper');
+      if (wrap) wrap.style.display = 'none';
+      try { localStorage.setItem(STORAGE_KEY, String(Date.now() + HIDE_MS)); } catch (_) {}
+    }, true);
+
+    var card = document.querySelector('#wv-wrapper-{{ section.id }} [data-wv-card]');
+    if (card) {
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          var href = card.getAttribute('href');
+          if (href && href.indexOf('wa.me') !== -1) {
+            e.preventDefault();
+            {% if abrir_nova_aba %}window.open(href, '_blank', 'noopener,noreferrer');{% else %}window.location.href = href;{% endif %}
+          }
+        }
+      });
+    }
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "WhatsApp Vendedor",
+  "tag": "section",
+  "class": "whatsapp-vendedor-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "ativar_widget",
+      "label": "Ativar widget de vendedor",
+      "default": true,
+      "info": "Exibe o widget flutuante de atendimento comercial"
+    },
+    {
+      "type": "header",
+      "content": "Dados do vendedor"
+    },
+    {
+      "type": "image_picker",
+      "id": "foto_vendedor",
+      "label": "Foto do vendedor",
+      "info": "Recomendado: 240x240px, formato JPG"
+    },
+    {
+      "type": "text",
+      "id": "nome_vendedor",
+      "label": "Nome do vendedor",
+      "default": "João - Vendas",
+      "placeholder": "Ex.: Maria - Vendas"
+    },
+    {
+      "type": "header",
+      "content": "Textos de chamada"
+    },
+    {
+      "type": "text",
+      "id": "texto_principal",
+      "label": "Texto principal",
+      "default": "Fale com nosso vendedor",
+      "placeholder": "Título visível no card"
+    },
+    {
+      "type": "textarea",
+      "id": "texto_secundario",
+      "label": "Texto secundário (subtítulo)",
+      "default": "Atendimento humano rápido via WhatsApp",
+      "placeholder": "Ex.: Tire suas dúvidas em minutos"
+    },
+    {
+      "type": "header",
+      "content": "WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "ddi",
+      "label": "DDI do país",
+      "default": "55",
+      "info": "Brasil = 55"
+    },
+    {
+      "type": "text",
+      "id": "numero_whatsapp",
+      "label": "Número do WhatsApp com DDD",
+      "default": "(11) 99999-9999",
+      "placeholder": "(11) 99999-9999",
+      "info": "O número é limpo automaticamente"
+    },
+    {
+      "type": "textarea",
+      "id": "mensagem_automatica",
+      "label": "Mensagem inicial automática",
+      "default": "Olá! Vim da loja e quero informações.",
+      "placeholder": "Mensagem enviada ao abrir a conversa"
+    },
+    {
+      "type": "checkbox",
+      "id": "abrir_nova_aba",
+      "label": "Abrir WhatsApp em nova aba",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Posição e tamanho"
+    },
+    {
+      "type": "select",
+      "id": "posicao_horizontal",
+      "label": "Posição horizontal",
+      "default": "direita",
+      "options": [
+        { "value": "esquerda", "label": "Esquerda" },
+        { "value": "direita",  "label": "Direita" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "posicao_vertical",
+      "label": "Posição vertical",
+      "default": "inferior",
+      "options": [
+        { "value": "superior", "label": "Superior" },
+        { "value": "inferior", "label": "Inferior" }
+      ],
+      "info": "Superior = outro widget (SAC) fica no topo direita"
+    },
+    {
+      "type": "range",
+      "id": "distancia_bordas",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Distância das bordas",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "tamanho_imagem",
+      "min": 48,
+      "max": 112,
+      "step": 4,
+      "unit": "px",
+      "label": "Tamanho da foto",
+      "default": 72
+    },
+    {
+      "type": "select",
+      "id": "tamanho_widget",
+      "label": "Tamanho geral do widget",
+      "default": "medio",
+      "options": [
+        { "value": "pequeno", "label": "Pequeno" },
+        { "value": "medio",   "label": "Médio" },
+        { "value": "grande",  "label": "Grande" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Visibilidade"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_desktop",
+      "label": "Mostrar no desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_celular",
+      "label": "Mostrar no celular",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Design e animação"
+    },
+    {
+      "type": "checkbox",
+      "id": "ativar_animacao",
+      "label": "Ativar animação discreta (pulsar)",
+      "default": true,
+      "info": "Animação leve no botão WhatsApp"
+    },
+    {
+      "type": "color",
+      "id": "cor_fundo",
+      "label": "Cor de fundo do card",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cor_texto",
+      "label": "Cor dos textos",
+      "default": "#1f2937"
+    },
+    {
+      "type": "color",
+      "id": "cor_botao",
+      "label": "Cor do botão WhatsApp",
+      "default": "#25d366"
+    }
+  ],
+  "presets": [
+    {
+      "name": "WhatsApp Vendedor",
+      "category": "Atendimento"
+    }
+  ]
+}
+{% endschema %}
