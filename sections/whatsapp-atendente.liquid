@@ -225,13 +225,14 @@
           loading="lazy"
         >
       {%- else -%}
-        <div
-          class="wa-photo-initials"
-          role="img"
-          aria-label="{% if section.settings.nome_atendente != blank %}Foto de {{ section.settings.nome_atendente }}{% else %}Foto da atendente{% endif %}"
+        <img
+          class="wa-photo"
+          src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Professional%20friendly%20female%20call%20center%20customer%20support%20agent%2C%20medium%20length%20dark%20brown%20straight%20bob%20hair%2C%20wearing%20silver%20and%20white%20headset%20with%20black%20mic%20arm%20on%20left%20side%2C%20light%20sky%20blue%20button%20up%20collared%20dress%20shirt%2C%20warm%20genuine%20smile%20showing%20teeth%2C%20brown%20eyes%2C%20soft%20neutral%20plain%20light%20gray%20studio%20background%2C%20high%20resolution%20square%20photorealistic%20headshot%2C%20business%20professional%20commercial%20attire&image_size=square_hd"
+          alt="{% if section.settings.nome_atendente != blank %}Foto de {{ section.settings.nome_atendente }}{% else %}Foto da atendente{% endif %}"
+          width="{{ tam_imagem }}"
+          height="{{ tam_imagem }}"
+          loading="lazy"
         >
-          {% if section.settings.nome_atendente != blank %}{{ section.settings.nome_atendente | slice: 0, 1 }}{% else %}A{% endif %}
-        </div>
       {%- endif -%}
       <span class="wa-wa-badge" aria-hidden="true">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
