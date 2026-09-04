@@ -166,13 +166,9 @@
     {{ shop.metafields.loox.global_html_head }}
     {% endcomment %}
     <style>
-      a[href*="wa.me"],
-      a[href*="whatsapp.com"],
       iframe[src*="whatsapp"],
       [id*="whatshelp"],
-      [id*="whatsapp"],
       [class*="whatshelp"],
-      [class*="whatsapp"],
       [class*="whtsapp"],
       [class*="chaty"],
       [class*="tidio"],
@@ -220,8 +216,8 @@
     {% section 'footer' %}
     {% comment %}
     {% section 'suporte-botao' %}
-    {% section 'whatsapp-vendedor' %}
     {% endcomment %}
+    {% section 'whatsapp-vendedor' %}
 
     <ul hidden>
       <li id="a11y-new-window-message">{{ 'general.accessibility.new_window' | t }}</li>
