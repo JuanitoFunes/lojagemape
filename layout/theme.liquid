@@ -162,7 +162,29 @@
       </script>
     {%- endif -%}
 
+    {% comment %}
     {{ shop.metafields.loox.global_html_head }}
+    {% endcomment %}
+    <style>
+      a[href*="wa.me"],
+      a[href*="whatsapp.com"],
+      iframe[src*="whatsapp"],
+      [id*="whatshelp"],
+      [id*="whatsapp"],
+      [class*="whatshelp"],
+      [class*="whatsapp"],
+      [class*="whtsapp"],
+      [class*="chaty"],
+      [class*="tidio"],
+      [class*="tawk"],
+      [class*="jivo"],
+      [class*="onepix"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    </style>
   </head>
 
   <body
@@ -205,7 +227,9 @@
       <li id="a11y-new-window-message">{{ 'general.accessibility.new_window' | t }}</li>
     </ul>
 
+    {% comment %}
     {{ shop.metafields.loox.global_html_body }}
+    {% endcomment %}
 
     <script type="text/javascript">
       var message="Desculpe, o clique com o botão direito foi desativado.";
