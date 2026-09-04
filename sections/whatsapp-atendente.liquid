@@ -51,38 +51,44 @@
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  @keyframes wa-slide-in-left {
+    from { opacity: 0; transform: translateX(-24px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
 
   .wa-wrapper {
     --wa-distance: {{ distancia }}px;
     --wa-img-size: {{ tam_imagem }}px;
     --wa-icon-size: {{ tam_icone }}px;
     position: fixed !important;
-    z-index: 2147483644 !important;
-    {% if pos_v == 'inferior' %}bottom: var(--wa-distance);{% else %}top: var(--wa-distance);{% endif %}
-    {% if pos_h == 'direita' %}right: var(--wa-distance);{% else %}left: var(--wa-distance);{% endif %}
+    z-index: 9999 !important;
+    {% if pos_v == 'superior' %}top: var(--wa-distance);{% else %}bottom: var(--wa-distance);{% endif %}
+    {% if pos_h == 'esquerda' %}left: var(--wa-distance);{% else %}right: var(--wa-distance);{% endif %}
     {% unless mostrar_desktop %}display: none !important;{% endunless %}
     max-width: 340px;
     width: auto;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    animation: wa-slide-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation: wa-slide-in-left 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     pointer-events: auto;
   }
   .wa-card {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background: transparent;
-    border-radius: 0;
-    box-shadow: none;
-    border: none;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(10px) saturate(160%);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+    border-radius: 999px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     text-decoration: none !important;
     color: {{ cor_texto }};
     cursor: pointer;
-    transition: transform 0.22s ease, filter 0.22s ease, opacity 0.22s ease;
+    transition: all 0.3s ease;
     position: relative;
     overflow: visible;
     will-change: transform;
-    padding: 8px 14px 8px 0;
+    padding: 6px 18px 6px 6px;
     gap: 14px;
   }
   .wa-card:focus-visible {
@@ -91,8 +97,8 @@
     border-radius: 999px;
   }
   .wa-card:hover {
-    transform: translateY(-2px);
-    filter: drop-shadow(0 10px 22px rgba(15,23,42,0.16));
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   }
   .wa-photo-wrap {
     position: relative;
@@ -107,7 +113,6 @@
     transition: transform 0.22s ease, box-shadow 0.22s ease;
   }
   .wa-card:hover .wa-photo-wrap {
-    transform: scale(1.04);
     box-shadow: 0 10px 26px rgba(15,23,42,0.28);
   }
   .wa-photo {
@@ -176,7 +181,6 @@
     line-height: 1.2;
     letter-spacing: -0.01em;
     color: #0f172a;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.7);
     display: block !important;
     white-space: nowrap;
     overflow: visible;
@@ -189,7 +193,6 @@
     color: #475569;
     opacity: 0.92;
     font-weight: 500;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.6);
     display: block !important;
     white-space: nowrap;
   }
@@ -204,25 +207,28 @@
     text-overflow: ellipsis;
   }
 
-  @media (max-width: 749px) {
+  @media (max-width: 768px) {
     {% unless mostrar_celular %}
     .wa-wrapper { display: none !important; }
     {% endunless %}
     .wa-wrapper {
       max-width: 100%;
       width: auto;
-      right: var(--wa-distance);
-      bottom: var(--wa-distance);
-      left: auto;
+      top: 15px !important;
+      left: 15px !important;
+      right: auto !important;
+      bottom: auto !important;
     }
-    .wa-wrapper { --wa-img-size: calc({{ tam_imagem }}px - 4px); --wa-icon-size: calc({{ tam_icone }}px - 1px); }
+    .wa-wrapper { --wa-img-size: calc({{ tam_imagem }}px - 6px); --wa-icon-size: calc({{ tam_icone }}px - 2px); }
     .wa-card {
-      border-radius: 0;
-      padding: 6px 12px 6px 0;
-      gap: 12px;
-      background: transparent;
-      border: none;
-      box-shadow: none;
+      border-radius: 999px;
+      padding: 5px 14px 5px 5px;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(8px) saturate(150%);
+      -webkit-backdrop-filter: blur(8px) saturate(150%);
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14);
     }
     .wa-body {
       display: flex;
@@ -241,11 +247,11 @@
       display: none !important;
     }
     .wa-wrapper.wa-expand .wa-card {
-      border-radius: 0;
-      padding: 6px 14px 6px 0;
-      background: transparent;
-      border: none;
-      box-shadow: none;
+      border-radius: 999px;
+      padding: 5px 16px 5px 5px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
     }
     .wa-wrapper.wa-expand .wa-body {
       display: flex;
@@ -435,7 +441,7 @@
       "type": "select",
       "id": "posicao_horizontal",
       "label": "Posição horizontal",
-      "default": "direita",
+      "default": "esquerda",
       "options": [
         { "value": "esquerda", "label": "Esquerda" },
         { "value": "direita",  "label": "Direita" }
@@ -445,12 +451,12 @@
       "type": "select",
       "id": "posicao_vertical",
       "label": "Posição vertical",
-      "default": "inferior",
+      "default": "superior",
       "options": [
         { "value": "superior", "label": "Superior" },
         { "value": "inferior", "label": "Inferior" }
       ],
-      "info": "Inferior direito é o padrão recomendado para atendimento comercial"
+      "info": "Superior esquerdo (modo flutuante topo)"
     },
     {
       "type": "range",
@@ -460,7 +466,7 @@
       "step": 4,
       "unit": "px",
       "label": "Distância das bordas",
-      "default": 24
+      "default": 20
     },
     {
       "type": "range",
@@ -470,7 +476,7 @@
       "step": 4,
       "unit": "px",
       "label": "Tamanho da imagem (atendente)",
-      "default": 64,
+      "default": 60,
       "info": "Foto circular da atendente (55–70px desktop recomendado)"
     },
     {
@@ -481,7 +487,7 @@
       "step": 2,
       "unit": "px",
       "label": "Tamanho do ícone do WhatsApp",
-      "default": 28,
+      "default": 26,
       "info": "Ícone sobreposto no canto inferior direito da foto (menor que a foto)"
     },
     {
