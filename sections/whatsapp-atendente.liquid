@@ -27,7 +27,7 @@
   assign texto_principal_default = 'Fale com nossa atendente'
   assign texto_secundario_default = 'Atendimento via WhatsApp'
   assign placeholder_photo_url = 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22320%22 viewBox=%220 0 320 320%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%25%22 stop-color=%22%2393c5fd%22/><stop offset=%22100%25%22 stop-color=%22%233b82f6%22/></linearGradient></defs><circle cx=%22160%22 cy=%22160%22 r=%22160%22 fill=%22url(%23g)%22/><text x=%22160%22 y=%22175%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-family=%22Arial,%20sans-serif%22 font-size=%22130%22 font-weight=%22700%22 fill=%22%23ffffff%22>A</text></svg>'
-  assign fallback_asset_candidates = 'atendente_png.png,atendente.png,atendente.jpg,atendente.jpeg,atendente-gemape.jpg,atendente-gemape.png' | split: ','
+  assign fallback_asset_candidates = 'atendente,atendente_png.png,atendente.png,atendente.jpg,atendente.jpeg,atendente-gemape.jpg,atendente-gemape.png' | split: ','
 -%}
 
 {%- if ativar -%}
@@ -364,8 +364,8 @@
       "type": "text",
       "id": "texto_principal",
       "label": "Texto principal",
-      "default": "Fale com um de nossos atendentes",
-      "placeholder": "Ex.: Fale com um de nossos atendentes"
+      "default": "Fale com nossa atendente",
+      "placeholder": "Ex.: Fale com nossa atendente"
     },
     {
       "type": "textarea",

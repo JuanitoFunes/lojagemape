@@ -166,30 +166,39 @@
     {{ shop.metafields.loox.global_html_head }}
     {% endcomment %}
     <style>
-      body > a[href*="wa.me"],
-      body > a[href*="whatsapp.com"],
-      iframe[src*="whatsapp"],
-      [id*="whatshelp"],
-      [class*="whatshelp"],
-      [id*="wh-widget"],
-      [class*="wh-widget"],
-      [class*="whtsapp"],
-      [class*="whatsapp"],
-      [class*="wa_float"],
-      [class*="wa-float"],
-      [class*="wa-button"],
-      [class*="chaty"],
-      [class*="tidio"],
-      [class*="tawk"],
-      [class*="jivo"],
-      [class*="onepix"],
-      [class*="joinchat"],
-      [class*="wpapp"] {
+      body > a[href*="wa.me"]:where(:not(.wa-card):not(#shopify-section-whatsapp-atendente a)),
+      body > a[href*="whatsapp.com"]:where(:not(.wa-card):not(#shopify-section-whatsapp-atendente a)),
+      iframe[src*="whatsapp"]:where(:not(#shopify-section-whatsapp-atendente *)),
+      [id*="whatshelp"]:where(:not(#shopify-section-whatsapp-atendente)),
+      [class*="whatshelp"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [id*="wh-widget"]:where(:not(#shopify-section-whatsapp-atendente)),
+      [class*="wh-widget"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [class*="whtsapp"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [class*="whatsapp"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [class*="wa_float"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [class*="wa-float"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [class*="wa-button"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [class*="chaty"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [class*="tidio"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [class*="tawk"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [class*="jivo"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [class*="onepix"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [class*="joinchat"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)),
+      [class*="wpapp"]:where(:not(.wa-wrapper):not(.wa-card):not(#shopify-section-whatsapp-atendente)) {
         display: none !important;
         visibility: hidden !important;
         opacity: 0 !important;
         pointer-events: none !important;
         z-index: -1 !important;
+      }
+
+      #shopify-section-whatsapp-atendente,
+      #shopify-section-whatsapp-atendente .wa-wrapper,
+      #shopify-section-whatsapp-atendente .wa-card {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
       }
     </style>
   </head>
