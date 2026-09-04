@@ -1,74 +1,105 @@
 ﻿{%- if section.settings.mostrar_secao -%}
 <style>
-  /* === Botao WhatsApp Flutuante v3 === */
+  #shopify-section-suporte-botao,
+  .shopify-section:has(.wpp-flutuante) {
+    overflow: visible !important;
+    transform: none !important;
+    filter: none !important;
+    contain: none !important;
+    position: static !important;
+  }
+
+  @keyframes wpp-pulse {
+    0%   { transform: scale(1);    box-shadow: 0 4px 18px rgba(37, 211, 102, 0.45), 0 0 0 0 rgba(37, 211, 102, 0.55); }
+    55%  { transform: scale(1.14); box-shadow: 0 8px 32px rgba(37, 211, 102, 0.7),  0 0 0 18px rgba(37, 211, 102, 0); }
+    100% { transform: scale(1);    box-shadow: 0 4px 18px rgba(37, 211, 102, 0.45), 0 0 0 0 rgba(37, 211, 102, 0); }
+  }
   @keyframes wpp-ring1 {
-    0%   { transform: scale(1); opacity: 0.7; }
-    100% { transform: scale(2.4); opacity: 0; }
+    0%   { transform: scale(1); opacity: 0.65; }
+    100% { transform: scale(2.15); opacity: 0; }
   }
   @keyframes wpp-ring2 {
-    0%   { transform: scale(1); opacity: 0.5; }
-    100% { transform: scale(1.9); opacity: 0; }
+    0%   { transform: scale(1); opacity: 0.45; }
+    100% { transform: scale(1.75); opacity: 0; }
   }
-  @keyframes wpp-bounce {
-    0%, 100% { transform: scale(1); }
-    50%       { transform: scale(1.1); }
-  }
+
   .wpp-flutuante {
     position: fixed !important;
-    right: 20px !important;
-    top: 90px !important;
+    top: 14px !important;
+    right: 16px !important;
     bottom: auto !important;
     left: auto !important;
-    z-index: 99999 !important;
+    z-index: 2147483646 !important;
+    width: 108px;
+    height: 108px;
+    pointer-events: none;
   }
   .wpp-wrapper {
     position: relative;
-    width: 72px;
-    height: 72px;
+    width: 108px;
+    height: 108px;
+    pointer-events: auto;
   }
   .wpp-wrapper::before,
   .wpp-wrapper::after {
     content: '';
     position: absolute;
-    top: 0; left: 0;
-    width: 72px;
-    height: 72px;
+    top: 0;
+    left: 0;
+    width: 108px;
+    height: 108px;
     border-radius: 50%;
-    background: rgba(37, 211, 102, 0.45);
-    animation: wpp-ring1 2s ease-out infinite;
+    background: rgba(37, 211, 102, 0.42);
+    animation: wpp-ring1 1.6s ease-out infinite;
     z-index: 0;
+    pointer-events: none;
   }
   .wpp-wrapper::after {
-    background: rgba(37, 211, 102, 0.3);
-    animation: wpp-ring2 2s ease-out infinite 0.5s;
+    background: rgba(37, 211, 102, 0.28);
+    animation: wpp-ring2 1.6s ease-out infinite 0.45s;
   }
   .wpp-btn {
     position: relative;
     z-index: 1;
-    width: 72px;
-    height: 72px;
+    width: 108px;
+    height: 108px;
     border-radius: 50%;
     background: #25d366;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(37,211,102,0.55);
-    animation: wpp-bounce 2s ease-in-out infinite;
-    transition: transform 0.2s, box-shadow 0.2s;
+    animation: wpp-pulse 1.5s ease-in-out infinite;
+    transition: filter 0.2s;
     border: none;
     outline: none;
   }
   .wpp-btn:hover {
-    transform: scale(1.12) !important;
-    box-shadow: 0 6px 28px rgba(37,211,102,0.75);
-    animation-play-state: paused;
+    filter: brightness(1.08);
   }
   .wpp-btn svg {
-    width: 44px;
-    height: 44px;
+    width: 64px;
+    height: 64px;
     fill: #fff;
     display: block;
+  }
+  @media (max-width: 749px) {
+    .wpp-flutuante,
+    .wpp-wrapper,
+    .wpp-wrapper::before,
+    .wpp-wrapper::after,
+    .wpp-btn {
+      width: 92px;
+      height: 92px;
+    }
+    .wpp-btn svg {
+      width: 54px;
+      height: 54px;
+    }
+    .wpp-flutuante {
+      top: 10px !important;
+      right: 10px !important;
+    }
   }
   .wpp-popup {
     position: absolute;
